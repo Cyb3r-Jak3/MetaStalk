@@ -8,7 +8,7 @@ include:
   script:
     - pip install -r requirements.txt
     - pip install pylint --quiet
-    - pylint --ignored-classes=_socketobject 
+    - pylint --ignored-classes=_socketobject PyStalk.py
 
 python-3.4:
   extends: ".test"
@@ -30,7 +30,7 @@ python-3.7:
   stage: test
   image: python:3.7
 
-python-3.7:
+python-3.8:
   extends: ".test"
   stage: test
   image: python:3.8
