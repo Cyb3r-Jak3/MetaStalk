@@ -31,8 +31,9 @@ def main():
         for file in os.listdir(args.files[0]):
             photos.append(os.path.join(args.files[0], file))
     else:
-        for item in len(range(args.files)):
-            photos.append(args.files[item])
+        for x, item in len(range(args.files)):
+            photos.append(args.files[x])
+            log.debug("Adding %s", item)
 
     def GPS_Check():
         lats = []
@@ -46,12 +47,13 @@ def main():
                     gps_photos.append(each)
                     lats.append(dms2dd(*my_image.gps_latitude))
                     longs.append(dms2dd(*my_image.gps_longitude))
-                    log.debug("{} has exif gps data".format(each))
+                    log.debug("%s has exif gps data", each)
                 else:
-                    log.info("{} has no exif data ".format(each))
+                    log.info("%s has no exif data ", each)
         points = []
-        for x in range(len(lats)):
+        for x, item in enumerate(lats):
             points.append((lats[x], longs[x]))
+            log.debug("%s added", item)
 
         fig = px.scatter_mapbox(lon=longs, lat=lats, hover_name=gps_photos)
         fig.update_layout(mapbox_style="open-street-map",
@@ -60,7 +62,8 @@ def main():
             pass
         else:
             fig.show()
-    GPS_Check
+    GPS_Check()
+
 
 if __name__ == "__main__":
     main()
