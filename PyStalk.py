@@ -19,7 +19,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('files', nargs='*', default=None,
                         help='Path of photos to check')
-    parser.add_argument('test', default=False, action="store_true",
+    parser.add_argument('-test', default=False, action="store_true",
                         help='True or false. Set to true to hide the figure.')
     args = parser.parse_args()
 
@@ -31,7 +31,7 @@ def main():
         for file in os.listdir(args.files[0]):
             photos.append(os.path.join(args.files[0], file))
     else:
-        for x, item in len(range(args.files)):
+        for x, item in enumerate(args.files):
             photos.append(args.files[x])
             log.debug("Adding %s", item)
 

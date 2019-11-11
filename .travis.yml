@@ -1,0 +1,24 @@
+language: python
+python:
+  - "3.5"
+# command to install dependencies
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+install:
+  - pip install -r requirements.txt
+addons:
+  postgresql: "9.5"
+services:
+  - redis-server
+# for codecoverage on codeclimate.com
+env:
+  global:
+      - CC_TEST_REPORTER_ID=[id]
+
+# command to run tests
+script:
+  - - flake8 ./PyStalk.py
+  - coverage run ./PyStalk.py -test ./tests/ExamplePhotos/
+after-script:
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi

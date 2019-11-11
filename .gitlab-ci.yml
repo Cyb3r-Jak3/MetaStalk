@@ -10,6 +10,7 @@ include:
     - pip install -r requirements.txt
     - pip install pylint --quiet
     - pylint --ignored-classes=_socketobject PyStalk.py
+    - flake8 ./PyStalk.py
 
 python-3.4:
   extends: ".test"
