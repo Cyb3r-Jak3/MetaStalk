@@ -7,6 +7,7 @@ before_script:
   - chmod +x ./cc-test-reporter
 install:
   - pip install -r requirements.txt
+  - pip install pylint flake8 coverage --quiet
 addons:
   postgresql: "9.5"
 services:
@@ -15,7 +16,6 @@ services:
 env:
   global:
       - CC_TEST_REPORTER_ID=[id]
-
 # command to run tests
 script:
   - - flake8 ./PyStalk.py

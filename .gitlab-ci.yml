@@ -7,8 +7,8 @@ include:
 
 .test:
   script:
-    - pip install -r requirements.txt
-    - pip install pylint --quiet
+    - pip install -r requirements.txt --quiet
+    - pip install pylint flake8 coverage --quiet
     - pylint --ignored-classes=_socketobject PyStalk.py
     - flake8 ./PyStalk.py
 
