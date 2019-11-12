@@ -1,8 +1,8 @@
 """Uses dash to create a webpage that contain all the graphs"""
+import webbrowser
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-import webbrowser
 # pylint: disable=invalid-name
 
 

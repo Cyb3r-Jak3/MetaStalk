@@ -2,16 +2,22 @@ stages:
 - test
 
 include:
-  - template: Dependency-Scanning.gitlab-ci.yml
+#  - template: Dependency-Scanning.gitlab-ci.yml
   - template: SAST.gitlab-ci.yml
 
 
 .test:
+  coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
+  before_script:
+    - pip install -U pip
   script:
     - pip install -r requirements.txt --quiet
     - pip install pylint flake8 coverage --quiet
     - pylint --ignored-classes=_socketobject PyStalk.py ./graph_web/app.py
     - flake8 ./PyStalk.py ./graph_web/app.py
+    - coverage run --source . .\PyStalk.py .\tests\ExamplePhotos\ -test
+  after_script:
+    - coverage report
 
 python-3.5:
   extends: ".test"
