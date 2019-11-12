@@ -15,7 +15,7 @@ include:
     - pip install pylint flake8 coverage --quiet
     - pylint --ignored-classes=_socketobject PyStalk.py ./graph_web/app.py
     - flake8 ./PyStalk.py ./graph_web/app.py
-    - coverage run --source . .\PyStalk.py .\tests\ExamplePhotos\ -test
+    - coverage run --source . ./PyStalk.py ./tests/ExamplePhotos/ -test
   after_script:
     - coverage report
 
