@@ -5,10 +5,6 @@ include:
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: SAST.gitlab-ci.yml
 
-dependency_scanning:
-  variables:
-    CI_DEBUG_TRACE: "true"
-    DS_PYTHON_VERSION: 3
 
 .test:
   script:

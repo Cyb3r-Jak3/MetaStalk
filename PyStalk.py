@@ -8,6 +8,7 @@ import logging
 import sys
 from exif import Image
 import plotly.express as px
+import plotly.graph_objects as go
 import graph_web
 
 
@@ -29,12 +30,14 @@ def GPS_Check(photos):
     for each in photos:
         with open(each, 'rb') as image_file:
             my_image = Image(image_file)
-            if my_image.has_exif:
-                gps_photos.append(each)
-                lats.append(dms2dd(*my_image.gps_latitude))
-                longs.append(dms2dd(*my_image.gps_longitude))
-                log.debug("%s has exif gps data", each)
-            else:
+
+            try:
+                if my_image.gps_datestamp:
+                    gps_photos.append(each)
+                    lats.append(dms2dd(*my_image.gps_latitude))
+                    longs.append(dms2dd(*my_image.gps_longitude))
+                    log.debug("%s has exif gps data", each)
+            except KeyError:
                 log.info("%s has no exif data ", each)
     points = []
     for x, item in enumerate(lats):
@@ -45,6 +48,40 @@ def GPS_Check(photos):
     fig.update_layout(mapbox_style="open-street-map",
                       title="Geo Locations")
 
+    return fig
+
+
+def Model_Chart(photos):
+    """Get model information and make a pie chart"""
+    models = []
+
+    for each in photos:
+        with open(each, 'rb') as image_file:
+            my_image = Image(image_file)
+            try:
+                if my_image.model:
+                    models.append(my_image.model)
+                    log.debug("%s has model data", each)
+            except KeyError:
+                log.info("%s has no model data ", each)
+                models.append("No Model Data")
+
+    freq = {}
+    for item in models:
+        if item in freq:
+            freq[item] += 1
+        else:
+            freq[item] = 1
+
+    labels = []
+    values = []
+    for key, value in freq.items():
+        # print("% s : % d" % (key, value))
+        labels.append(key)
+        values.append(value)
+
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+    # fig.show()
     return fig
 
 
@@ -75,13 +112,9 @@ def main():
             photos.append(args.files[x])
             log.debug("Adding %s", item)
 
-    gps_plot = GPS_Check(photos)
-    plots = [gps_plot]
+    plots = [GPS_Check(photos), Model_Chart(photos)]
 
-    if args.test:
-        pass
-    else:
-        graph_web.graph(plots)
+    graph_web.graph(plots, args.test)
 
 
 if __name__ == "__main__":
