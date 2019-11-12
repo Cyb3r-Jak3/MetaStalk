@@ -9,8 +9,8 @@ include:
   script:
     - pip install -r requirements.txt --quiet
     - pip install pylint flake8 coverage --quiet
-    - pylint --ignored-classes=_socketobject PyStalk.py
-    - flake8 ./PyStalk.py
+    - pylint --ignored-classes=_socketobject PyStalk.py ./graph_web/app.py
+    - flake8 ./PyStalk.py ./graph_web/app.py
 
 python-3.5:
   extends: ".test"

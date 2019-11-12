@@ -5,8 +5,10 @@
 import argparse
 import os
 import logging
+import sys
 from exif import Image
 import plotly.express as px
+import graph_web
 
 
 log = logging.getLogger(__name__)
@@ -18,6 +20,34 @@ def dms2dd(degrees, minutes, seconds):
     return dd
 
 
+def GPS_Check(photos):
+    """Takes a list of photos and creates a geo plot of them"""
+    lats = []
+    longs = []
+    gps_photos = []
+
+    for each in photos:
+        with open(each, 'rb') as image_file:
+            my_image = Image(image_file)
+            if my_image.has_exif:
+                gps_photos.append(each)
+                lats.append(dms2dd(*my_image.gps_latitude))
+                longs.append(dms2dd(*my_image.gps_longitude))
+                log.debug("%s has exif gps data", each)
+            else:
+                log.info("%s has no exif data ", each)
+    points = []
+    for x, item in enumerate(lats):
+        points.append((lats[x], longs[x]))
+        log.debug("%s added", item)
+
+    fig = px.scatter_mapbox(lon=longs, lat=lats, hover_name=gps_photos)
+    fig.update_layout(mapbox_style="open-street-map",
+                      title="Geo Locations")
+
+    return fig
+
+
 def main():
     """ This main function"""
     parser = argparse.ArgumentParser()
@@ -27,10 +57,16 @@ def main():
                         help='True or false. Set to true to hide the figure.')
     args = parser.parse_args()
 
+    if not args.files:
+        log.exception("WARNING: No path was inputted. "
+                      "This will cause the script to break")
+        sys.exit(1)
+
     for path in args.files:
         isdir = os.path.isdir(path)
 
     photos = []
+
     if isdir:
         for file in os.listdir(args.files[0]):
             photos.append(os.path.join(args.files[0], file))
@@ -39,34 +75,13 @@ def main():
             photos.append(args.files[x])
             log.debug("Adding %s", item)
 
-    def GPS_Check():
-        lats = []
-        longs = []
-        gps_photos = []
+    gps_plot = GPS_Check(photos)
+    plots = [gps_plot]
 
-        for each in photos:
-            with open(each, 'rb') as image_file:
-                my_image = Image(image_file)
-                if my_image.has_exif:
-                    gps_photos.append(each)
-                    lats.append(dms2dd(*my_image.gps_latitude))
-                    longs.append(dms2dd(*my_image.gps_longitude))
-                    log.debug("%s has exif gps data", each)
-                else:
-                    log.info("%s has no exif data ", each)
-        points = []
-        for x, item in enumerate(lats):
-            points.append((lats[x], longs[x]))
-            log.debug("%s added", item)
-
-        fig = px.scatter_mapbox(lon=longs, lat=lats, hover_name=gps_photos)
-        fig.update_layout(mapbox_style="open-street-map",
-                          title="Geo Locations",)
-        if args.test:
-            pass
-        else:
-            fig.show()
-    GPS_Check()
+    if args.test:
+        pass
+    else:
+        graph_web.graph(plots)
 
 
 if __name__ == "__main__":
