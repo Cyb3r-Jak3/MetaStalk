@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=invalid-name, missing-module-docstring, missing-function-docstring,
+"""This script get the exif data from photos
+     and plots the gps coordinates on a map """
+# pylint: disable=invalid-name
 import argparse
 import os
 import logging
@@ -11,11 +13,13 @@ log = logging.getLogger(__name__)
 
 
 def dms2dd(degrees, minutes, seconds):
+    """Takes DMS input and creates decimal degrees"""
     dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
     return dd
 
 
 def main():
+    """ This main function"""
     parser = argparse.ArgumentParser()
     parser.add_argument('files', nargs='*', default=None,
                         help='Path of photos to check')
