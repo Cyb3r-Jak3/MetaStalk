@@ -3,13 +3,15 @@
 ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/master?label=Master%20Build&style=flat-plastic) ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/develop?label=Develop%20Build&style=flat-plastic)
 [![GitHub](https://img.shields.io/github/license/jwhite1st/pystalk?style=plastic)](https://github.com/jwhite1st/PyStalk/blob/master/LICENSE)
 
+[![coverage report](https://gitlab.com/jwhite1st/pystalk/badges/develop/coverage.svg)](https://gitlab.com/jwhite1st/pystalk/commits/develop)
+
 ## About
 
 PyStalk is a tool that can be used to generate graphs from the meta data of images. It currently creates graphs for gps coordinates and a pie chart for mode information.
 
 Examples photos from [here](https://github.com/ianare/exif-samples/tree/master/jpg/gps)
 
-Please open issues on [Gitlab](https://gitlab.com/jwhite1st/pystalk/issues)
+Please open issues on [Github](https://github.com/jwhite1st/PyStalk/issues)
 
 ## How to use
 
