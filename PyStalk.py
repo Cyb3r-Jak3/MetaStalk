@@ -120,7 +120,7 @@ def main():
                     invaid_photos.append(os.path.join(args.files[0], file))
     else:
         for x, item in enumerate(args.files):
-            with open(file, 'rb') as exif:
+            with open(item, 'rb') as exif:
                 exif_image = Image(exif)
                 if exif_image.has_exif:
                     photos.append(args.files[x])
