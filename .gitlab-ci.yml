@@ -14,9 +14,9 @@ include:
   script:
     - pip install -r requirements.txt --quiet
     - pip install pylint flake8 coverage --quiet
-    - pylint --ignored-classes=_socketobject PyStalk.py ./graph_web/app.py
-    - flake8 ./PyStalk.py ./graph_web/app.py
-    - coverage run --source . ./PyStalk.py ./tests/ExamplePhotos/ -test
+    - pylint --ignored-classes=_socketobject PyStalk.py ./utils/app.py ./utils/logger.py --rcfile=.pylint
+    - flake8 PyStalk.py ./utils/app.py ./utils/logger.py
+    - coverage run --source . ./PyStalk.py ./tests/ExamplePhotos/ -t -v
   after_script:
     - coverage report
 
