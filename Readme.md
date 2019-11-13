@@ -3,7 +3,7 @@
 ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/master?label=Master%20Build&style=plastic) ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/develop?label=Develop%20Build&style=plastic)
 [![GitHub](https://img.shields.io/github/license/jwhite1st/pystalk?style=plastic)](https://github.com/jwhite1st/PyStalk/blob/master/LICENSE)
 
-[![coverage report](https://gitlab.com/jwhite1st/pystalk/badges/develop/coverage.svg)](https://gitlab.com/jwhite1st/pystalk/commits/develop)
+[![coverage report](https://gitlab.com/jwhite1st/pystalk/badges/master/coverage.svg)](https://gitlab.com/jwhite1st/pystalk/commits/master)
 
 ## About
 
