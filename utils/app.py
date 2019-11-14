@@ -3,7 +3,6 @@ import webbrowser
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-# pylint: disable=invalid-name
 
 
 def graph(plots, log, test=False):
@@ -14,7 +13,10 @@ def graph(plots, log, test=False):
     for name, chart in plots.items():
         graphs.append(dcc.Graph(id="graph-{}".format(name), figure=chart))
     app.layout = html.Div([html.H1("PyStalk", style={"text-align": "center"}),
-                           html.Div(children=graphs)])
+                           html.H6("By Jacob White",
+                                   style={"text-align": "center"}),
+                           html.Div(children=graphs),
+                           ])
     if not test:
         webbrowser.open("http://localhost:8052", new=2)
         try:

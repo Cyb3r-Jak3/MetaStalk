@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Try/except in app.py for dash for clean exit
 - Logging feature which gets created with logger in utils
 - Custom log levels arguments
+- Favicon in assets folder
+- Modules folders contains all graphing features.
+  - Easier for future development
 
 ### Changed
 
@@ -18,8 +21,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Changed web browser open to localhost to deal with HTTP Everywhere.
 - Added all extra python code to utils directory
 - Added option to disable invalid name in pylint rcfile
+- Moved, GPS_Chart, Model_Chart and Stats to modules
 
-## [1.0] 2019-11-12
+## [v1.0] 2019-11-12
 
 ### Added
 

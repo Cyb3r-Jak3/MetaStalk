@@ -10,7 +10,7 @@ def make_logger(name, log_level):
     logger.setLevel(log_level)
     formatter = logging.Formatter(
         '%(levelname)s - %(name)s - %(asctime)s - %(message)s',
-        '%Y-%m-%d %H:%M:%S')  # Built in formatting
+        '%Y-%m-%d %H:%M:%S')
     fh = logging.FileHandler("{}.log".format(name))
     fh.setFormatter(formatter)
     logger.addHandler(fh)
