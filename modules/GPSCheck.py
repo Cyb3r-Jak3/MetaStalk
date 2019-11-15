@@ -20,7 +20,7 @@ def GPS_Check(photos, log):
         with open(each, 'rb') as image_file:
             my_image = Image(image_file)
             try:
-                if my_image.gps_datestamp:
+                if my_image.gps_latitude:
                     gps_photos.append(each)
                     lats.append(dms2dd(*my_image.gps_latitude))
                     longs.append(dms2dd(*my_image.gps_longitude))

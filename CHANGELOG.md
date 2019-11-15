@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added development branch coverage
 - Moved Photo stats to the top
 - Renamed app.py to web.py
+- Changed GPS check to seeing if there is latitude
 
 ## [v1.0] - 2019-11-12
 
