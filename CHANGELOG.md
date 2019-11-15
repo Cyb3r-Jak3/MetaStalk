@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Favicon in assets folder
 - Modules folders contains all graphing features.
   - Easier for future development
+- Table that reports the gps timestamp
 
 ### Changed
 
@@ -22,8 +23,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added all extra python code to utils directory
 - Added option to disable invalid name in pylint rcfile
 - Moved, GPS_Chart, Model_Chart and Stats to modules
+- Added development branch coverage
+- Moved Photo stats to the top
+- Renamed app.py to web.py
 
-## [v1.0] 2019-11-12
+## [v1.0] - 2019-11-12
 
 ### Added
 

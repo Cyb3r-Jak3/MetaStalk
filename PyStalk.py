@@ -30,6 +30,7 @@ def main():
     args = parser.parse_args()
 
     log = utils.make_logger("PyStalk", args.loglevel)
+    log.info("Starting up")
 
     if not args.files:
         log.error("WARNING: No path was inputted. "
@@ -62,10 +63,12 @@ def main():
                     invalid_photos.append(args.files[x])
 
     plots = {
+        "stats": modules.Stats(photos, invalid_photos, log),
         "gps": modules.GPS_Check(photos, log),
         "model": modules.Model_Chart(photos, log),
-        "stats": modules.Stats(photos, invalid_photos, log)
+        "Timestamp": modules.DateTime(photos, log)
         }
+
     utils.graph(plots, log, args.test)
 
 

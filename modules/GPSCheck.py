@@ -11,6 +11,7 @@ def dms2dd(degrees, minutes, seconds):
 
 def GPS_Check(photos, log):
     """Takes a list of photos and creates a geo plot of them"""
+    log.info("Starting GPS Check")
     lats = []
     longs = []
     gps_photos = []

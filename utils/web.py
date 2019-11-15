@@ -12,11 +12,11 @@ def graph(plots, log, test=False):
     graphs = []
     for name, chart in plots.items():
         graphs.append(dcc.Graph(id="graph-{}".format(name), figure=chart))
-    app.layout = html.Div([html.H1("PyStalk", style={"text-align": "center"}),
-                           html.H6("By Jacob White",
-                                   style={"text-align": "center"}),
-                           html.Div(children=graphs),
-                           ])
+    app.layout = html.Div([
+        html.H1("PyStalk", style={"text-align": "center"}),
+        html.H6("By Jacob White", style={"text-align": "center"}),
+        html.Div(children=graphs),
+        ])
     if not test:
         webbrowser.open("http://localhost:8052", new=2)
         try:

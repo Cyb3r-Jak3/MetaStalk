@@ -5,8 +5,9 @@ import plotly.graph_objects as go
 
 def Stats(photos, invalid, log):
     """Creates the table of photos"""
-    log.info("There are {} photos with metadata and {} without"
-             .format(len(photos), len(invalid)))
+    log.info("Staring Stats")
+    log.debug("There are {} photos with metadata and {} without"
+              .format(len(photos), len(invalid)))
     fig = go.Figure(
         data=[go.Table(
             header=dict(values=[

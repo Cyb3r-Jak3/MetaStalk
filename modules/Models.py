@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 def Model_Chart(photos, log):
     """Get model information and make a pie chart"""
+    log.info("Staring Model Chart")
     models = []
 
     for each in photos:
