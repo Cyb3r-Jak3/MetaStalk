@@ -1,120 +1,75 @@
 # -*- coding: utf-8 -*-
 """This script get the exif data from photos
      and plots the gps coordinates on a map """
-# pylint: disable=invalid-name
+
 import argparse
 import os
 import logging
 import sys
 from exif import Image
-import plotly.express as px
-import plotly.graph_objects as go
-import graph_web
-
-
-log = logging.getLogger(__name__)
-
-
-def dms2dd(degrees, minutes, seconds):
-    """Takes DMS input and creates decimal degrees"""
-    dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
-    return dd
-
-
-def GPS_Check(photos):
-    """Takes a list of photos and creates a geo plot of them"""
-    lats = []
-    longs = []
-    gps_photos = []
-
-    for each in photos:
-        with open(each, 'rb') as image_file:
-            my_image = Image(image_file)
-
-            try:
-                if my_image.gps_datestamp:
-                    gps_photos.append(each)
-                    lats.append(dms2dd(*my_image.gps_latitude))
-                    longs.append(dms2dd(*my_image.gps_longitude))
-                    log.debug("%s has exif gps data", each)
-            except KeyError:
-                log.info("%s has no exif data ", each)
-    points = []
-    for x, item in enumerate(lats):
-        points.append((lats[x], longs[x]))
-        log.debug("%s added", item)
-
-    fig = px.scatter_mapbox(lon=longs, lat=lats, hover_name=gps_photos)
-    fig.update_layout(mapbox_style="open-street-map",
-                      title="Geo Locations")
-
-    return fig
-
-
-def Model_Chart(photos):
-    """Get model information and make a pie chart"""
-    models = []
-
-    for each in photos:
-        with open(each, 'rb') as image_file:
-            my_image = Image(image_file)
-            try:
-                if my_image.model:
-                    models.append(my_image.model)
-                    log.debug("%s has model data", each)
-            except KeyError:
-                log.info("%s has no model data ", each)
-                models.append("No Model Data")
-
-    freq = {}
-    for item in models:
-        if item in freq:
-            freq[item] += 1
-        else:
-            freq[item] = 1
-
-    labels = []
-    values = []
-    for key, value in freq.items():
-        # print("% s : % d" % (key, value))
-        labels.append(key)
-        values.append(value)
-
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
-    # fig.show()
-    return fig
+import utils
+import modules
 
 
 def main():
     """ This main function"""
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog="PyStalk",
+                                     description="Tool to graph "
+                                                 "image metadata.")
     parser.add_argument('files', nargs='*', default=None,
-                        help='Path of photos to check')
-    parser.add_argument('-test', default=False, action="store_true",
-                        help='True or false. Set to true to hide the figure.')
+                        help='Path of photos to check.')
+    parser.add_argument('-t', '--test', default=False, action="store_true",
+                        help='Does not show the graphs at the end.')
+# Logging function from https://stackoverflow.com/a/20663028
+    parser.add_argument('-d', '--debug', help="Sets logging level to DEBUG.",
+                        action="store_const", dest="loglevel",
+                        const=logging.DEBUG, default=logging.WARNING)
+    parser.add_argument("-v", "--verbose", help="Sets logging level to INFO",
+                        action="store_const", dest="loglevel",
+                        const=logging.INFO)
     args = parser.parse_args()
 
+    log = utils.make_logger("PyStalk", args.loglevel)
+    log.info("Starting up")
+
     if not args.files:
-        log.exception("WARNING: No path was inputted. "
-                      "This will cause the script to break")
+        log.error("WARNING: No path was inputted. "
+                  "This will cause the script to break")
         sys.exit(1)
 
     for path in args.files:
         isdir = os.path.isdir(path)
+        log.debug("Detected path as a directory")
 
     photos = []
+    invalid_photos = []
 
     if isdir:
         for file in os.listdir(args.files[0]):
-            photos.append(os.path.join(args.files[0], file))
+            with open(os.path.join(args.files[0], file), 'rb') as exif:
+                exif_image = Image(exif)
+                if exif_image.has_exif:
+                    photos.append(os.path.join(args.files[0], file))
+                else:
+                    invalid_photos.append(os.path.join(args.files[0], file))
     else:
         for x, item in enumerate(args.files):
-            photos.append(args.files[x])
-            log.debug("Adding %s", item)
+            with open(item, 'rb') as exif:
+                exif_image = Image(exif)
+                if exif_image.has_exif:
+                    photos.append(args.files[x])
+                    log.debug("%s has exif data", item)
+                else:
+                    invalid_photos.append(args.files[x])
 
-    plots = [GPS_Check(photos), Model_Chart(photos)]
+    plots = {
+        "stats": modules.Stats(photos, invalid_photos, log),
+        "gps": modules.GPS_Check(photos, log),
+        "model": modules.Model_Chart(photos, log),
+        "Timestamp": modules.DateTime(photos, log)
+        }
 
-    graph_web.graph(plots, args.test)
+    utils.graph(plots, log, args.test)
 
 
 if __name__ == "__main__":
