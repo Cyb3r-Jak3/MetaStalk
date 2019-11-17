@@ -2,9 +2,9 @@
 
 [![GitHub](https://img.shields.io/github/license/jwhite1st/pystalk?style=plastic)](https://github.com/jwhite1st/PyStalk/blob/master/LICENSE)
 
-Master Branch
-![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/master?label=Master%20Build&style=plastic) [![coverage report](https://gitlab.com/jwhite1st/pystalk/badges/master/coverage.svg)](https://gitlab.com/jwhite1st/pystalk/commits/master)
-Develop Branch
+Master Branch  
+![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/master?label=Master%20Build&style=plastic) [![coverage report](https://gitlab.com/jwhite1st/pystalk/badges/master/coverage.svg)](https://gitlab.com/jwhite1st/pystalk/commits/master)  
+Develop Branch  
 ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/jwhite1st/pystalk/develop?label=Develop%20Build&style=plastic) [![coverage report](https://gitlab.com/jwhite1st/pystalk/badges/develop/coverage.svg)](https://gitlab.com/jwhite1st/pystalk/commits/develop)
 
 ## About
@@ -40,7 +40,7 @@ python PyStalk.py <Path to files>
 - Ability to choose the graphs used
 - Possible PyPi package (??)
 - Possible web scrapper for images
-  - Or import for a current one
+  - Or import from a current one
 
 ## Disclaimer
 

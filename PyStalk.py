@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """This script get the exif data from photos
-     and plots the gps coordinates on a map """
+     and creates graphs from the metadata"""
 
 import argparse
 import os
