@@ -13,7 +13,9 @@ PyStalk is a tool that can be used to generate graphs from the meta data of imag
 
 Examples photos from [here](https://github.com/ianare/exif-samples/tree/master/jpg/gps).
 
-Please open issues on [Github](https://github.com/jwhite1st/PyStalk/issues)
+Please open issues on [GitLab](https://gitlab.com/jwhite1st/PyStalk/issues)
+
+All development is done on GitLab and pushed to GitHub.
 
 ## How to use
 
@@ -28,7 +30,7 @@ python PyStalk.py <Path to files>
 ## TODO
 
 - New Graphs
-  - Timestamps
+  - ~~Timestamps~~
   - Camera information
     - focal_length
     - flash

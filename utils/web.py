@@ -13,8 +13,8 @@ def graph(plots, log, test=False):
     for name, chart in plots.items():
         graphs.append(dcc.Graph(id="graph-{}".format(name), figure=chart))
     app.layout = html.Div([
-        html.H1("PyStalk", style={"text-align": "center"}),
-        html.H6("By Jacob White", style={"text-align": "center"}),
+        html.H1("PyStalk", style={"textAlign": "center"}),
+        html.H6("By Jacob White", style={"textAlign": "center"}),
         html.Div(children=graphs),
         ])
     if not test:
@@ -23,3 +23,5 @@ def graph(plots, log, test=False):
             app.run_server(port=8052)
         except KeyboardInterrupt:
             log.info("Interput received. Exiting.")
+    else:
+        log.info("Test flag was set. No webpage will be shown.")

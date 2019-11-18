@@ -3,6 +3,20 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+
+### Added
+
+- Added 3 more example photos
+- Artifact in build stage to view logs.
+
+### Changed
+
+- Made the logger wipe old log file.
+- Better try/expect for GPSCheck and DateTime
+- Fixed Text Align
+- Renamed Pylint rc file to correct name for building
+
 ## [v1.1] - 2019-11-17
 
 ### Added

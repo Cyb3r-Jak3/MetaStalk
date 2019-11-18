@@ -63,10 +63,10 @@ def main():
                     invalid_photos.append(args.files[x])
 
     plots = {
-        "stats": modules.Stats(photos, invalid_photos, log),
-        "gps": modules.GPS_Check(photos, log),
-        "model": modules.Model_Chart(photos, log),
-        "Timestamp": modules.DateTime(photos, log)
+        "STATS": modules.Stats(photos, invalid_photos, log),
+        "GPS": modules.GPS_Check(photos, log),
+        "Model": modules.Model_Chart(photos, log),
+        "Timestamp": modules.DateTime(photos, log),
         }
 
     utils.graph(plots, log, args.test)

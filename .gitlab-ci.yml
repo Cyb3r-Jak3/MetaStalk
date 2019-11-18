@@ -9,14 +9,17 @@ include:
 
 .test:
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
+  artifacts:
+    paths:
+    - PyStalk.log
   before_script:
     - pip install -U pip
   script:
     - pip install -r requirements.txt --quiet
-    - pip install pylint flake8 coverage --quiet
-    - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/ --rcfile=.pylint
-    - flake8 PyStalk.py PyStalk.py ./utils/ ./modules/ --statistics --show-source
-    - coverage run --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -v
+    - pip install pylint flake8 coverage bandit --quiet
+    - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
+    - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
+    - coverage run --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
   after_script:
     - coverage report
 

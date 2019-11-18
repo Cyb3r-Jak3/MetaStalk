@@ -27,6 +27,8 @@ def GPS_Check(photos, log):
                     log.debug("%s has gps data", each)
             except KeyError:
                 log.debug("%s has no gps data ", each)
+            except AttributeError:
+                log.debug("%s has no gps data ", each)
     points = []
     for x in range(len(lats)):  # pylint: disable=consider-using-enumerate
         points.append((lats[x], longs[x]))
