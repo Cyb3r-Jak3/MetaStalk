@@ -1,11 +1,11 @@
 # PyStalk
 
-[![GitHub](https://img.shields.io/github/license/Cy3b3r-Jak3/pystalk?style=flat)](https://github.com/Cy3b3r-Jak3/PyStalk/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/Cyb3r-Jak3/pystalk?style=flat)](https://github.com/Cyb3r-Jak3/PyStalk/blob/master/LICENSE)
 
 Master Branch  
-![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cy3b3r-Jak3/pystalk/master?label=Master%20Build&style=flat) [![coverage report](https://gitlab.com/Cy3b3r-Jak3/pystalk/badges/master/coverage.svg)](https://gitlab.com/Cy3b3r-Jak3/pystalk/commits/master)  
+![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/master?label=Master%20Build&style=flat) [![coverage report](https://gitlab.com/Cyb3r-Jak3/pystalk/badges/master/coverage.svg)](https://gitlab.com/Cyb3r-Jak3/pystalk/commits/master)  
 Develop Branch  
-![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cy3b3r-Jak3/pystalk/develop?label=Develop%20Build&style=flat) [![coverage report](https://gitlab.com/Cy3b3r-Jak3/pystalk/badges/develop/coverage.svg)](https://gitlab.com/Cy3b3r-Jak3/pystalk/commits/develop)
+![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/develop?label=Develop%20Build&style=flat) [![coverage report](https://gitlab.com/Cyb3r-Jak3/pystalk/badges/develop/coverage.svg)](https://gitlab.com/Cyb3r-Jak3/pystalk/commits/develop)
 
 ## About
 
@@ -20,7 +20,7 @@ All development is done on GitLab and pushed to GitHub.
 ## How to use
 
 ```bash
-git clone https://github.com/Cy3b3r-Jak3/pystalk
+git clone https://github.com/Cyb3r-Jak3/pystalk
 cd pystalk
 pip install -r requirements
 python PyStalk.py <Path to files>
@@ -36,8 +36,6 @@ python PyStalk.py <Path to files>
     - ~~flash~~
 - Better web layout
   - Better sized graphs
-  - ~~Ability to select a photo~~ (Not easily accomplished)
-  - ~~Maybe Responsiveness~~ (Not easily accomplished)
 - Ability to choose the graphs used
 - Possible PyPi package (??)
 - Possible web scrapper for images
