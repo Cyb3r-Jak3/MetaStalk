@@ -7,8 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
-- Added 3 more example photos
-- Artifact in build stage to view logs.
+- Added 5 more example photos
+- Artifact in build stage to view logs, bandit and coverage reports.
+- Added flash analyzer to show levels of flash
 
 ### Changed
 
@@ -16,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Better try/expect for GPSCheck and DateTime
 - Fixed Text Align
 - Renamed Pylint rc file to correct name for building
+- Title location for Model chart
+- Fixed module descriptions
 
 ## [v1.1] - 2019-11-17
 

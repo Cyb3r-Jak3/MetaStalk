@@ -1,4 +1,4 @@
-"""Make geo chart with plots of gps data"""
+"""Makes geo chart with plots of gps data"""
 from exif import Image
 import plotly.express as px
 

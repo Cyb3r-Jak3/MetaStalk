@@ -12,6 +12,8 @@ include:
   artifacts:
     paths:
     - PyStalk.log
+    - htmlcov/*
+    - bandit.json
   before_script:
     - pip install -U pip
   script:
@@ -19,9 +21,11 @@ include:
     - pip install pylint flake8 coverage bandit --quiet
     - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
     - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
+    - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
     - coverage run --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
   after_script:
     - coverage report
+    - coverage html
 
 python-3.5:
   extends: ".test"
