@@ -1,10 +1,10 @@
 stages:
-- Code_Checking
 - test
+- Code_Checking
 
 include:
   - template: SAST.gitlab-ci.yml
-  - template: License-Management.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
 
 
 .test:
