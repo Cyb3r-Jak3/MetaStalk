@@ -15,6 +15,7 @@ include:
     - bandit.json
   before_script:
     - pip install -U pip
+    - curl https://deepsource.io/cli | sh
   script:
     - pip install -r requirements.txt --quiet
     - pip install pylint flake8 coverage bandit --quiet
@@ -25,6 +26,8 @@ include:
   after_script:
     - coverage report
     - coverage html
+    - coverage xml
+    - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
 
 python-3.5:
   extends: ".check"
