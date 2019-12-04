@@ -4,10 +4,9 @@ stages:
 
 include:
   - template: SAST.gitlab-ci.yml
-  - template: Dependency-Scanning.gitlab-ci.yml
 
 
-.test:
+.check:
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
     paths:
@@ -28,21 +27,21 @@ include:
     - coverage html
 
 python-3.5:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.5
 
 python-3.6:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.6
 
 python-3.7:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.7
 
 python-3.8:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.8
