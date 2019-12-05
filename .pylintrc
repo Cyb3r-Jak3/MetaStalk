@@ -5,7 +5,7 @@
 logging-format-style=new
 
 [MESSAGES CONTROL]
-disable=invalid-name, logging-too-many-args
+disable=invalid-name, logging-too-many-args, duplicate-code
 
 #[MASTER]
 
