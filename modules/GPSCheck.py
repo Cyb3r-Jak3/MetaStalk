@@ -1,4 +1,4 @@
-"""Make geo chart with plots of gps data"""
+"""Makes geo chart with plots of gps data"""
 from exif import Image
 import plotly.express as px
 
@@ -26,6 +26,8 @@ def GPS_Check(photos, log):
                     longs.append(dms2dd(*my_image.gps_longitude))
                     log.debug("%s has gps data", each)
             except KeyError:
+                log.debug("%s has no gps data ", each)
+            except AttributeError:
                 log.debug("%s has no gps data ", each)
     points = []
     for x in range(len(lats)):  # pylint: disable=consider-using-enumerate

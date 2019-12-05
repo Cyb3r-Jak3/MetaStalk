@@ -1,41 +1,46 @@
 stages:
 - Code_Checking
-- test
-
-include:
-  - template: SAST.gitlab-ci.yml
-  - template: License-Management.gitlab-ci.yml
 
 
-.test:
+.check:
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
+  artifacts:
+    paths:
+    - PyStalk.log
+    - htmlcov/*
+    - bandit.json
   before_script:
     - pip install -U pip
+    - curl https://deepsource.io/cli | sh
   script:
     - pip install -r requirements.txt --quiet
-    - pip install pylint flake8 coverage --quiet
-    - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/ --rcfile=.pylint
-    - flake8 PyStalk.py PyStalk.py ./utils/ ./modules/ --statistics --show-source
-    - coverage run --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -v
+    - pip install pylint flake8 coverage bandit --quiet
+    - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
+    - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
+    - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
+    - coverage run --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
   after_script:
     - coverage report
+    - coverage html
+    - coverage xml
+    - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
 
 python-3.5:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.5
 
 python-3.6:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.6
 
 python-3.7:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.7
 
 python-3.8:
-  extends: ".test"
+  extends: ".check"
   stage: Code_Checking
   image: python:3.8

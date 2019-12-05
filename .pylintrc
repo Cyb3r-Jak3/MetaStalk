@@ -1,0 +1,15 @@
+[LOGGING]
+
+# Format style used to check logging format string. `old` means using %
+# formatting, while `new` is for `{}` formatting.
+logging-format-style=new
+
+[MESSAGES CONTROL]
+disable=invalid-name, logging-too-many-args, duplicate-code
+
+#[MASTER]
+
+# Add files or directories matching the regex patterns to the blacklist. The
+# regex matches against base names, not paths.
+# Ignore all .py files under the 3rdparty subdirectory.
+#ignore-patterns=**/utils/**/blank.py

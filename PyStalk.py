@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """This script get the exif data from photos
-     and creates graphs from the metadata"""
+and creates graphs from the metadata"""
 
 import argparse
 import os
@@ -45,28 +45,37 @@ def main():
     invalid_photos = []
 
     if isdir:
-        for file in os.listdir(args.files[0]):
-            with open(os.path.join(args.files[0], file), 'rb') as exif:
-                exif_image = Image(exif)
-                if exif_image.has_exif:
-                    photos.append(os.path.join(args.files[0], file))
-                else:
-                    invalid_photos.append(os.path.join(args.files[0], file))
+        for f in os.listdir(args.files[0]):
+            with open(os.path.join(args.files[0], f), 'rb') as raw_photo:
+                try:
+                    exif_image = Image(raw_photo)
+                    if exif_image.has_exif:
+                        photos.append(os.path.join(args.files[0], f))
+                    else:
+                        invalid_photos.append(os.path.join(args.files[0], f))
+                except AssertionError:
+                    log.warning("Error with %s", raw_photo)
     else:
         for x, item in enumerate(args.files):
-            with open(item, 'rb') as exif:
-                exif_image = Image(exif)
-                if exif_image.has_exif:
-                    photos.append(args.files[x])
-                    log.debug("%s has exif data", item)
-                else:
-                    invalid_photos.append(args.files[x])
+            with open(item, 'rb') as raw_photo:
+                try:
+                    exif_image = Image(raw_photo)
+                    if exif_image.has_exif:
+                        photos.append(args.files[x])
+                        log.debug("%s has exif data", item)
+                    else:
+                        invalid_photos.append(args.files[x])
+                except AssertionError:
+                    log.warning("Error with %s", raw_photo)
 
     plots = {
-        "stats": modules.Stats(photos, invalid_photos, log),
-        "gps": modules.GPS_Check(photos, log),
-        "model": modules.Model_Chart(photos, log),
-        "Timestamp": modules.DateTime(photos, log)
+        "STATS": modules.Stats(photos, invalid_photos, log),
+        "GPS": modules.GPS_Check(photos, log),
+        "Model": modules.Model_Chart(photos, log),
+        "Timestamp": modules.DateTime(photos, log),
+        "Flash": modules.Flash_Chart(photos, log),
+        "Focal": modules.Focal_Chart(photos, log),
+        "Software": modules.Software_Chart(photos, log)
         }
 
     utils.graph(plots, log, args.test)
