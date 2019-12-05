@@ -30,11 +30,6 @@ python PyStalk.py <Path to files>
 
 ## TODO
 
-- New Graphs
-  - ~~Timestamps~~
-  - Camera information
-    - focal_length
-    - ~~flash~~
 - Better web layout
   - Better sized graphs
 - Ability to choose the graphs used
