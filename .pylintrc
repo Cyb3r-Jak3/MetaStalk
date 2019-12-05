@@ -6,3 +6,10 @@ logging-format-style=new
 
 [MESSAGES CONTROL]
 disable=invalid-name, logging-too-many-args
+
+[MASTER]
+
+# Add files or directories matching the regex patterns to the blacklist. The
+# regex matches against base names, not paths.
+# Ignore all .py files under the 3rdparty subdirectory.
+ignore-patterns=**/utils/**/blank.py

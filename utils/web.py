@@ -9,12 +9,14 @@ def graph(plots, log, test=False):
     """Creates the graphs"""
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+    app.title = "PyStalk | Dash"
     graphs = []
     for name, chart in plots.items():
         graphs.append(dcc.Graph(id="graph-{}".format(name), figure=chart))
     app.layout = html.Div([
         html.H1("PyStalk", style={"textAlign": "center"}),
-        html.H6("By Jacob White", style={"textAlign": "center"}),
+        html.H6(html.A('Cyber Jake', href="https://twitter.com/Cyb3r_Jak3"),
+                style={"textAlign": "center"}),
         html.Div(children=graphs),
         ])
     if not test:

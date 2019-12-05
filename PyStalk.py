@@ -74,6 +74,8 @@ def main():
         "Model": modules.Model_Chart(photos, log),
         "Timestamp": modules.DateTime(photos, log),
         "Flash": modules.Flash_Chart(photos, log),
+        "Focal": modules.Focal_Chart(photos, log),
+        "Software": modules.Software_Chart(photos, log)
         }
 
     utils.graph(plots, log, args.test)
