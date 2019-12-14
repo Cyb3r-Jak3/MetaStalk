@@ -4,8 +4,7 @@
 [![DeepSource](https://static.deepsource.io/deepsource-badge-light.svg)](https://deepsource.io/gl/Cyb3r-Jak3/PyStalk/?ref=repository-badge)
 
 Master Branch  
-![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/master?label=Master%20Build&style=flat) [![coverage report](https://gitlab.com/Cyb3r-Jak3/pystalk/badges/master/coverage.svg)](https://gitlab.com/Cyb3r-Jak3/pystalk/commits/master)  
-Develop Branch  
+![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/master?label=Master%20Build&style=flat) [![Test Coverage](https://api.codeclimate.com/v1/badges/896b338971314c13a56e/test_coverage)](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk/test_coverage)
 ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/develop?label=Develop%20Build&style=flat) [![coverage report](https://gitlab.com/Cyb3r-Jak3/pystalk/badges/develop/coverage.svg)](https://gitlab.com/Cyb3r-Jak3/pystalk/commits/develop)
 
 ## About
