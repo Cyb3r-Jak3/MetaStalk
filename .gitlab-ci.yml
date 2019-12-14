@@ -12,6 +12,9 @@ stages:
   before_script:
     - pip install -U pip
     - curl https://deepsource.io/cli | sh
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
   script:
     - pip install -r requirements.txt --quiet
     - pip install pylint flake8 coverage bandit --quiet
@@ -24,6 +27,7 @@ stages:
     - coverage html
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
+    - ./cc-test-reporter after-build 
 
 python-3.5:
   extends: ".check"
