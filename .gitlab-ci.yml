@@ -1,5 +1,10 @@
 stages:
+- test
 - Code_Checking
+
+include:
+  - template: SAST.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
 
 
 .check:
@@ -41,7 +46,7 @@ python-3.6:
 
 python-3.7:
   extends: ".check"
-  stage: Code_Checking
+  stage: test
   image: python:3.7
 
 python-3.8:

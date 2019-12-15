@@ -71,7 +71,7 @@ def main():
     plots = {
         "STATS": modules.Stats(photos, invalid_photos, log),
         "GPS": modules.GPS_Check(photos, log),
-        "Model": modules.Pi_Chart(photos, "Models", log),
+        "Model": modules.Pi_Chart(photos, "Model", log),
         "Timestamp": modules.DateTime(photos, log),
         "Flash": modules.Flash_Chart(photos, log),
         "Focal": modules.Focal_Chart(photos, log),

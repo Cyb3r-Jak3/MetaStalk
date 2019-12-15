@@ -3,7 +3,7 @@ from exif import Image
 import plotly.graph_objects as go
 
 
-def Pi_Chart(photos, pitype, log):
+def Pi_Chart(photos, pitype, log):  # pylint: disable=too-many-branches
     """Get model information and make a pie chart"""
     log.info("Staring %s Chart", pitype)
     table = []
@@ -11,7 +11,7 @@ def Pi_Chart(photos, pitype, log):
     for each in photos:
         with open(each, 'rb') as image_file:
             my_image = Image(image_file)
-            if pitype == "Models":
+            if pitype == "Model":
                 try:
                     if my_image.model:
                         table.append(my_image.model)
