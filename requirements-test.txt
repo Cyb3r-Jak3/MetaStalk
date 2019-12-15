@@ -1,0 +1,5 @@
+exif
+plotly
+pandas
+dash
+Cython
