@@ -3,6 +3,17 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [UNRELEASED]
+
+### Added
+
+- [Code Climate](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk)
+- PieChart.py
+
+### Changed
+
+- Models and software chart now use the same modules PieChart.py
+
 ## [v1.2] - 2019-12-04
 
 ### Added

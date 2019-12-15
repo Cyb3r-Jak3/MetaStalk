@@ -6,6 +6,8 @@ from .DateTime import DateTime
 from .Flash import Flash_Chart
 from .Focal import Focal_Chart
 from .Software import Software_Chart
+from .PieChart import Pi_Chart
 
 __all__ = ["GPS_Check", "Model_Chart", "Stats",
-           "DateTime", "Flash_Chart", "Focal_Chart", 'Software_Chart']
+           "DateTime", "Flash_Chart", "Focal_Chart", 'Software_Chart',
+           "Pi_Chart"]
