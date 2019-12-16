@@ -52,3 +52,8 @@ python-3.8:
   extends: ".check"
   stage: Code_Checking
   image: python:3.8
+
+pypy-3:
+  extends: ".check"
+  stage: Code_Checking
+  image: pypy:3
