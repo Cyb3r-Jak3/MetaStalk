@@ -5,14 +5,7 @@ stages:
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
-<<<<<<< .gitlab-ci.yml
-=======
 
-<<<<<<< .gitlab-ci.yml
-=======
->>>>>>> .gitlab-ci.yml
-
->>>>>>> .gitlab-ci.yml
 .check:
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
