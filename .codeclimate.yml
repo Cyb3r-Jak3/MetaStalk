@@ -8,3 +8,9 @@ engines:
         enabled: false
       MD013:
         enabled: false
+
+plugins: 
+  git-legal:
+    enabled: true
+  sonar-python:
+    enabled: true
