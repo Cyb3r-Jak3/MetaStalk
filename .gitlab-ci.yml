@@ -5,16 +5,10 @@ stages:
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
-<<<<<<< .gitlab-ci.yml
-  
 
 python-3.7:
   image: python:3.7
   stage: test
-=======
-
-.check:
->>>>>>> .gitlab-ci.yml
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
     paths:
