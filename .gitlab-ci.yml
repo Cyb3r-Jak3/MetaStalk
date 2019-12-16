@@ -5,8 +5,16 @@ stages:
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
+<<<<<<< .gitlab-ci.yml
+  
+
+python-3.7:
+  image: python:3.7
+  stage: test
+=======
 
 .check:
+>>>>>>> .gitlab-ci.yml
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
     paths:
@@ -33,6 +41,19 @@ include:
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build 
 
+.check:
+  before_script:
+    - pip install -U pip
+  script:
+  - pip install -r requirements.txt --quiet
+  - pip install pylint flake8 bandit --quiet
+  - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
+  - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
+  - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
+  artifacts:
+    paths:
+    - bandit.json
+
 python-3.5:
   extends: ".check"
   stage: Code_Checking
@@ -42,11 +63,6 @@ python-3.6:
   extends: ".check"
   stage: Code_Checking
   image: python:3.6
-
-python-3.7:
-  extends: ".check"
-  stage: test
-  image: python:3.7
 
 python-3.8:
   extends: ".check"

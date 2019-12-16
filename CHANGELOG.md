@@ -3,6 +3,15 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v1.3.1] - 2019-12-16
+
+### Changed
+
+- Changed so code coverage only run on python 3.7
+- Removed random from code climate
+- Updated Datetime to remove duplicate code.
+- Changed DateTime date_time
+
 ## [v1.3] - 2019-12-15
 
 ### Added
