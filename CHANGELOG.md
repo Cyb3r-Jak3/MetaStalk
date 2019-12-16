@@ -7,12 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
-- [Code Climate](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk)
-- PieChart.py
+- [Code Climate](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk).
+- [PieChart.py](modules/PieChart.py).
 
 ### Changed
 
-- Models and software chart now use the same modules PieChart.py
+- Models, Software, Flash, Focal charts now use the same module, [PieChart.py](modules/PieChart.py).
+
+### Removed
+
+- Focal, Models, Flash, Focal all handled by [PieChart.py](modules/PieChart.py).
 
 ## [v1.2] - 2019-12-04
 

@@ -71,11 +71,11 @@ def main():
     plots = {
         "STATS": modules.Stats(photos, invalid_photos, log),
         "GPS": modules.GPS_Check(photos, log),
-        "Model": modules.Pi_Chart(photos, "Model", log),
         "Timestamp": modules.DateTime(photos, log),
-        "Flash": modules.Flash_Chart(photos, log),
-        "Focal": modules.Focal_Chart(photos, log),
-        "Software": modules.Pi_Chart(photos, "Software", log)
+        "Model": modules.PieChart(photos, "Model", log),
+        "Flash": modules.PieChart(photos, "Flash", log),
+        "Focal": modules.PieChart(photos, "Focal", log),
+        "Software": modules.PieChart(photos, "Software", log)
         }
 
     utils.graph(plots, log, args.test)
