@@ -3,12 +3,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [UNRELEASED]
+## [v1.3] - 2019-12-15
 
 ### Added
 
 - [Code Climate](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk).
 - [PieChart.py](modules/PieChart.py).
+- Dependency and Static scanning.
 
 ### Changed
 
