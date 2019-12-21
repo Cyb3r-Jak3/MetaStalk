@@ -29,7 +29,7 @@ python-3.7:
     - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
     - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
     - coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
-    - coverage run -a --source . ./PyStalk.py ./utils/Example/Panasonic_DMC-FZ30.jpg ./utils/ExamplePhotos/DSCN0010.jpg -t -d
+    - coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/Panasonic_DMC-FZ30.jpg ./utils/ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
     - coverage report
     - coverage html
