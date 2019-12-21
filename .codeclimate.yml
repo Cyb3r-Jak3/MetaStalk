@@ -1,6 +1,6 @@
 version: 2
 checks:
-  complex-logic:
+  method-complexity:
       config:
         threshold: 10
 plugins:
@@ -10,6 +10,8 @@ plugins:
     enabled: true
     checks:
       python:S1542:
+        enabled: false
+      python:S3776:
         enabled: false
   markdownlint:
     enabled: true
