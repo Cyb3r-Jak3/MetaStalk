@@ -3,6 +3,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [UNRELEASED]
+
+### Changed
+
+- Added multiple coverage run
+
 ## [v1.3.1] - 2019-12-16
 
 ### Changed

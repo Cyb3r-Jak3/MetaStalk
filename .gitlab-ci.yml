@@ -5,6 +5,7 @@ stages:
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
+  
 
 python-3.7:
   image: python:3.7
@@ -27,7 +28,8 @@ python-3.7:
     - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
     - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
     - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
-    - coverage run --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
+    - coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
+    - coverage run -a --source . ./PyStalk.py ./utils/Example/Panasonic_DMC-FZ30.jpg ./utils/ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
     - coverage report
     - coverage html
