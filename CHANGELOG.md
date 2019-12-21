@@ -7,7 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
-- Added multiple coverage run
+- Added multiple coverage run.
+- Readme now used LF line endings.
+- Modified tests run on code climate.
 
 ## [v1.3.1] - 2019-12-16
 

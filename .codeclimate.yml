@@ -4,6 +4,9 @@ plugins:
     enabled: true
   sonar-python:
     enabled: true
+    checks:
+      python:S1542:
+        enabled: false
   markdownlint:
     enabled: true
     checks:
