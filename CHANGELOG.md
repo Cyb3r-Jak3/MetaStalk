@@ -1,15 +1,21 @@
 <!-- markdownlint-disable MD024 -->
 # Changelog
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+## [v1.3.2] - 2019-12-21
 
-## [UNRELEASED]
+Changes made to testing and PyStalk. No new functionality added.
+
+### Added
+
+- Added time reporting for how long it took.
 
 ### Changed
 
 - Added multiple coverage run.
 - Readme now used LF line endings.
 - Modified tests run on code climate.
+- Split up the main function in PyStalk to setup and run.
+- Changed linting so that it happens before for all python versions.
 
 ## [v1.3.1] - 2019-12-16
 
@@ -92,3 +98,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - Geo Chart and Model Chart.
 - dash page for displaying charts.
+
+---
+This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)

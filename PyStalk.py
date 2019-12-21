@@ -6,13 +6,16 @@ import argparse
 import os
 import logging
 import sys
+import timeit
 from exif import Image
 import utils
 import modules
 
+start = timeit.default_timer()
 
-def main():
-    """ This main function"""
+
+def setup():
+    """ Sets up PyStalk and parses arguments"""
     parser = argparse.ArgumentParser(prog="PyStalk",
                                      description="Tool to graph "
                                                  "image metadata.")
@@ -31,7 +34,11 @@ def main():
 
     log = utils.make_logger("PyStalk", args.loglevel)
     log.info("Starting up")
+    run(args, log)
 
+
+def run(args, log):
+    """Process files and generates graphs"""
     if not args.files:
         log.error("WARNING: No path was inputted. "
                   "This will cause the script to break")
@@ -78,8 +85,8 @@ def main():
         "Software": modules.PieChart(photos, "Software", log)
         }
 
-    utils.graph(plots, log, args.test)
+    utils.graph(plots, log, start, args.test)
 
 
 if __name__ == "__main__":
-    main()
+    setup()

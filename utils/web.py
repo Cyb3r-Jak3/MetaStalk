@@ -1,11 +1,12 @@
 """Uses dash to create a webpage that contain all the graphs"""
+import timeit
 import webbrowser
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 
 
-def graph(plots, log, test=False):
+def graph(plots, log, start, test=False):
     """Creates the graphs"""
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -13,11 +14,14 @@ def graph(plots, log, test=False):
     graphs = []
     for name, chart in plots.items():
         graphs.append(dcc.Graph(id="graph-{}".format(name), figure=chart))
+    stop = timeit.default_timer()
     app.layout = html.Div([
         html.H1("PyStalk", style={"textAlign": "center"}),
         html.H6(html.A('Cyber Jake', href="https://twitter.com/Cyb3r_Jak3"),
                 style={"textAlign": "center"}),
         html.Div(children=graphs),
+        html.P("Time Taken = {0:.2f} seconds".format(stop - start),
+               style={"textAlign": "center"})
         ])
     if not test:
         webbrowser.open("http://localhost:8052", new=2)
@@ -27,3 +31,4 @@ def graph(plots, log, test=False):
             log.info("Interput received. Exiting.")
     else:
         log.info("Test flag was set. No webpage will be shown.")
+        log.info("Time Taken = {0:.2f} seconds".format(stop - start))
