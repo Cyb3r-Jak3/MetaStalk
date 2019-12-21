@@ -15,7 +15,6 @@ def date_time(photos, log):
         with open(each, 'rb') as image_file:
             my_image = Image(image_file)
             for i, _ in enumerate(types):
-                log.debug(i)
                 try:
                     types[i].append(getattr(my_image, types_str[i]))
                     log.debug("%s has %s data", each, types_str[i])

@@ -1,8 +1,8 @@
 # PyStalk
 
-[![GitHub](https://img.shields.io/github/license/Cyb3r-Jak3/pystalk?style=flat)](https://github.com/Cyb3r-Jak3/PyStalk/blob/master/LICENSE)  
+[![GitHub](https://img.shields.io/github/license/Cyb3r-Jak3/pystalk?style=flat)](https://github.com/Cyb3r-Jak3/PyStalk/blob/master/LICENSE) ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/master?label=Build&style=flat)  
 
-![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/master?label=Build&style=flat) [![Test Coverage](https://api.codeclimate.com/v1/badges/896b338971314c13a56e/test_coverage)](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/896b338971314c13a56e/test_coverage)](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/896b338971314c13a56e/maintainability)](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk/maintainability)
 
 ## About
 
@@ -24,7 +24,7 @@ python PyStalk.py <Path to files>
 #i.e. python PyStalk.py tests/ExamplePhotos/
 ```
 
-## TODO
+### TODO
 
 - Better web layout
   - Better sized graphs
