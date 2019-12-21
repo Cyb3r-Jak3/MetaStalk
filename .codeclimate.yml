@@ -1,5 +1,9 @@
 version: 2
-plugins: 
+checks:
+  complex-logic:
+      config:
+        threshold: 10
+plugins:
   git-legal:
     enabled: true
   sonar-python:
