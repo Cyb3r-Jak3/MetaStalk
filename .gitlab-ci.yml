@@ -13,6 +13,10 @@ gemnasium-python-dependency_scanning:
   stage: test
   before_script:
   - pip install numpy
+  only:
+    refs:
+      - master
+      - schedules
 
 
 Coverage:
@@ -56,6 +60,7 @@ Coverage:
   artifacts:
     paths:
     - bandit.json
+
 
 python-3.5:
   extends: ".check"
