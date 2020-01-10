@@ -34,46 +34,23 @@ def setup():
 
     log = utils.make_logger("PyStalk", args.loglevel)
     log.info("Starting up")
+    if not args.files:
+        log.error("ERROR: No path was inputted.")
+        sys.exit(1)
     run(args, log)
 
 
 def run(args, log):
     """Process files and generates graphs"""
-    if not args.files:
-        log.error("WARNING: No path was inputted. "
-                  "This will cause the script to break")
-        sys.exit(1)
 
     for path in args.files:
         isdir = os.path.isdir(path)
         log.debug("Detected path as a directory")
 
-    photos = []
-    invalid_photos = []
-
     if isdir:
-        for f in os.listdir(args.files[0]):
-            with open(os.path.join(args.files[0], f), 'rb') as raw_photo:
-                try:
-                    exif_image = Image(raw_photo)
-                    if exif_image.has_exif:
-                        photos.append(os.path.join(args.files[0], f))
-                    else:
-                        invalid_photos.append(os.path.join(args.files[0], f))
-                except AssertionError:
-                    log.warning("Error with %s", raw_photo)
+        photos, invalid_photos = directory_search(args.files[0], log)
     else:
-        for x, item in enumerate(args.files):
-            with open(item, 'rb') as raw_photo:
-                try:
-                    exif_image = Image(raw_photo)
-                    if exif_image.has_exif:
-                        photos.append(args.files[x])
-                        log.debug("%s has exif data", item)
-                    else:
-                        invalid_photos.append(args.files[x])
-                except AssertionError:
-                    log.warning("Error with %s", raw_photo)
+        photos, invalid_photos = file_search(args.files, log)
 
     plots = {
         "STATS": modules.Stats(photos, invalid_photos, log),
@@ -86,6 +63,44 @@ def run(args, log):
         }
 
     utils.graph(plots, log, start, args.test)
+
+
+def directory_search(files: list, log):
+    """
+    Used to append all file in a directory
+    """
+    valid, invalid = [], []
+    for item in os.listdir(files):
+        with open(os.path.join(files, item), 'rb') as raw_photo:
+            try:
+                exif_image = Image(raw_photo)
+                if exif_image.has_exif:
+                    valid.append(os.path.join(files, item))
+                    log.debug("%s has exif data", item)
+                else:
+                    invalid.append(os.path.join(files, item))
+            except AssertionError:
+                log.warning("Error with %s", raw_photo)
+    return valid, invalid
+
+
+def file_search(files: list, log):
+    """
+    Used to append files if the path is not a directory
+    """
+    valid, invalid = [], []
+    for x, item in enumerate(files):
+        with open(item, 'rb') as raw_photo:
+            try:
+                exif_image = Image(raw_photo)
+                if exif_image.has_exif:
+                    valid.append(files[x])
+                    log.debug("%s has exif data", item)
+                else:
+                    invalid.append(files[x])
+            except AssertionError:
+                log.warning("Error with %s", raw_photo)
+    return valid, invalid
 
 
 if __name__ == "__main__":
