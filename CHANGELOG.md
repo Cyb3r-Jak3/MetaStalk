@@ -1,5 +1,16 @@
-<!-- markdownlint-disable MD024 -->
 # Changelog
+<!-- markdownlint-disable MD024 -->
+
+## UNRELEASED
+
+### Changed
+
+- Split directory searching and individual file searching to their own functions.
+- Dependency scanning only takes place for master branch and scheduled runs.
+
+### Removed
+
+- fixme plugin for codeclimate
 
 ## [v1.3.2] - 2019-12-21
 
