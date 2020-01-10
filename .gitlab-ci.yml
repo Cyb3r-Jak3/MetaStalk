@@ -12,8 +12,6 @@ variables:
 gemnasium-python-dependency_scanning:
   stage: test
   before_script:
-  - pip install -U pip
-  - pip install Cython
   - pip install numpy
 
 
