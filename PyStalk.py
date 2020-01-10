@@ -66,9 +66,7 @@ def run(args, log):
 
 
 def directory_search(files: list, log):
-    """
-    Used to append all file in a directory
-    """
+    """ Used to append all file in a directory """
     valid, invalid = [], []
     for item in os.listdir(files):
         with open(os.path.join(files, item), 'rb') as raw_photo:
@@ -85,9 +83,7 @@ def directory_search(files: list, log):
 
 
 def file_search(files: list, log):
-    """
-    Used to append files if the path is not a directory
-    """
+    """ Used to append files if the path is not a directory """
     valid, invalid = [], []
     for x, item in enumerate(files):
         with open(item, 'rb') as raw_photo:
