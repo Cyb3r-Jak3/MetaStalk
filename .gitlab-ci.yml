@@ -13,6 +13,10 @@ gemnasium-python-dependency_scanning:
   stage: test
   before_script:
   - pip install numpy
+  only:
+    refs:
+      - master
+      - schedules
 
 
 Coverage:
@@ -51,8 +55,12 @@ Coverage:
   - pip install pylint flake8 bandit --quiet
   - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
   - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
-  - bandit -r -f json PyStalk.py ./utils/ ./modules/
+  - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
   - time python3 ./PyStalk.py ./utils/ExamplePhotos/ -t -d
+  artifacts:
+    paths:
+    - bandit.json
+
 
 python-3.5:
   extends: ".check"
