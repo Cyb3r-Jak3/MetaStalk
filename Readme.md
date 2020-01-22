@@ -24,7 +24,7 @@ All development is done on GitLab and pushed to GitHub.
 ```bash
 git clone https://github.com/Cyb3r-Jak3/pystalk
 cd pystalk
-pip install -r requirements
+pip install -r requirements.txt
 python PyStalk.py <Path to files>
 #i.e. python PyStalk.py tests/ExamplePhotos/
 ```
