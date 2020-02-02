@@ -1,76 +1,125 @@
-# Contributor Covenant Code of Conduct
+# Changelog
 
-## Our Pledge
+<!-- markdownlint-disable MD024 -->
 
-In the interest of fostering an open and welcoming environment, we as
-contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of age, body
-size, disability, ethnicity, sex characteristics, gender identity and expression,
-level of experience, education, socio-economic status, nationality, personal
-appearance, race, religion, or sexual identity and orientation.
+## [v1.4] - 2020-02-02
 
-## Our Standards
+### Changed
 
-Examples of behavior that contributes to creating a positive environment
-include:
+- Rewrote to use hachoir
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+### Removed
 
-Examples of unacceptable behavior by participants include:
+- Removed Flash Chart (library does not support it.)
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
- advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
- address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
- professional setting
+## [v1.3.3] - 2020-01-10
 
-## Our Responsibilities
+### Changed
 
-Project maintainers are responsible for clarifying the standards of acceptable
-behavior and are expected to take appropriate and fair corrective action in
-response to any instances of unacceptable behavior.
+- Split directory searching and individual file searching to their own functions.
+- Dependency scanning only takes place for master branch and scheduled runs.
 
-Project maintainers have the right and responsibility to remove, edit, or
-reject comments, commits, code, wiki edits, issues, and other contributions
-that are not aligned to this Code of Conduct, or to ban temporarily or
-permanently any contributor for other behaviors that they deem inappropriate,
-threatening, offensive, or harmful.
+### Removed
 
-## Scope
+- fixme plugin for codeclimate
 
-This Code of Conduct applies both within project spaces and in public spaces
-when an individual is representing the project or its community. Examples of
-representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
-representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
+## [v1.3.2] - 2019-12-21
 
-## Enforcement
+Changes made to testing and PyStalk. No new functionality added.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at [jake@jwhite.network](mailto:jake+git@jwhite.network). All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
+### Added
 
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
+- Added time reporting for how long it took.
 
-## Attribution
+### Changed
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+- Added multiple coverage run.
+- Readme now used LF line endings.
+- Modified tests run on code climate.
+- Split up the main function in PyStalk to setup and run.
+- Changed linting so that it happens before for all python versions.
 
-[homepage]: https://www.contributor-covenant.org
+## [v1.3.1] - 2019-12-16
 
-For answers to common questions about this code of conduct, see
-https://www.contributor-covenant.org/faq
+### Changed
+
+- Changed so code coverage only run on python 3.7
+- Removed random from code climate
+- Updated Datetime to remove duplicate code.
+- Changed DateTime date_time
+
+## [v1.3] - 2019-12-15
+
+### Added
+
+- [Code Climate](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk).
+- [PieChart.py](modules/PieChart.py).
+- Dependency and Static scanning.
+
+### Changed
+
+- Models, Software, Flash, Focal charts now use the same module, [PieChart.py](modules/PieChart.py).
+
+### Removed
+
+- Focal, Models, Flash, Focal all handled by [PieChart.py](modules/PieChart.py).
+
+## [v1.2] - 2019-12-04
+
+### Added
+
+- Added 5 more example photos.
+- Artifact in build stage to view logs, bandit and coverage reports.
+- Added flash analyzer to show levels of flash.
+- Added Software and Focal charts.
+- [Deepsource](https://deepsource.io/gl/Cyb3r-Jak3/PyStalk/) tracking.
+
+### Changed
+
+- Made the logger wipe old log file.
+- Better try/expect for GPSCheck and DateTime.
+- Fixed Text Align.
+- Renamed Pylint rc file to correct name for building.
+- Title location for Model chart.
+- Fixed module descriptions.
+- Updated app title.
+- Updated app header.
+
+### Removed
+
+- Removed Static Testing.
+
+## [v1.1] - 2019-11-17
+
+### Added
+
+- Try/except in app.py for dash for clean exit.
+- Logging feature which gets created with logger in utils.
+- Custom log levels arguments.
+- Favicon in assets folder.
+- Modules folders contains all graphing features.
+  - Easier for future development.
+- Table that reports the gps timestamp.
+
+### Changed
+
+- Made plots a dictionary to improve graph name.
+- Moved Geo title to initial figure.
+- Changed web browser open to localhost to deal with HTTP Everywhere.
+- Added all extra python code to utils directory.
+- Added option to disable invalid name in pylint rcfile.
+- Moved, GPS_Chart, Model_Chart and Stats to modules.
+- Added development branch coverage.
+- Moved Photo stats to the top.
+- Renamed app.py to web.py.
+- Changed GPS check to seeing if there is latitude.
+
+## [v1.0] - 2019-11-12
+
+### Added
+
+- Geo Chart and Model Chart.
+- dash page for displaying charts.
+
+---
+This format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
