@@ -25,10 +25,7 @@ def graph(plots: dict, log, t_start: float, test=False):
         ])
     if not test:
         webbrowser.open("http://localhost:8052", new=2)
-        try:
-            app.run_server(port=8052)
-        except KeyboardInterrupt:
-            log.info("Interput received. Exiting.")
+        app.run_server(port=8052)
     else:
         log.info("Test flag was set. No webpage will be shown.")
         log.info("Time Taken = {0:.2f} seconds".format(t_stop - t_start))
