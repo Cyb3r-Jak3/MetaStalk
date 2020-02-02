@@ -1,4 +1,4 @@
-exif
+hachoir
 plotly
 pandas
 dash
