@@ -2,6 +2,16 @@
 
 <!-- markdownlint-disable MD024 -->
 
+## [v1.4] - 2020-02-02
+
+### Changed
+
+- Rewrote to use hachoir
+
+### Removed
+
+- Removed Flash Chart (library does not support it.)
+
 ## [v1.3.3] - 2020-01-10
 
 ### Changed

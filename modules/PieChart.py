@@ -1,5 +1,4 @@
 """Module that makes a pie chart."""
-from exif import Image
 import plotly.graph_objects as go
 
 
@@ -14,10 +13,8 @@ def create_chart(table, pietype):
 
     (labels, values) = ([], [])
     for key, value in freq.items():
-        if pietype == "Focal":
+        if pietype == "Camera focal":
             labels.append("Length: {}".format(key))
-        elif pietype == "Flash":
-            labels.append("Level: {}".format(key))
         else:
             labels.append(key)
         values.append(value)
@@ -28,23 +25,15 @@ def create_chart(table, pietype):
     return fig
 
 
-def PieChart(photos, pietype, log):
+def PieChart(photos: list, pietype: str, log):
     """Gets information and makes a pie chart"""
     log.info("Staring %s Chart", pietype)
     table = []
 
     for each in photos:
-        with open(each, 'rb') as image_file:
-            my_image = Image(image_file)
-            if pietype == "Focal":
-                pietype = "focal_length"
-            try:
-                table.append(getattr(my_image, pietype.lower()))
-            except KeyError as ke:
-                log.debug("%s has no %s data. Error: %s ", each, pietype, ke)
-            except AttributeError as ae:
-                log.debug("%s has no %s data. Error: %s", each, pietype, ae)
-    if pietype == "focal_length":
-        pietype = "Focal"
+        try:
+            table.append(each[pietype])
+        except KeyError:
+            log.info("%s has no %s data", each["item"], pietype)
 
     return create_chart(table, pietype)

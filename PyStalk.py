@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 """This script get the exif data from photos
 and creates graphs from the metadata"""
-
 import argparse
 import os
 import logging
 import sys
 import timeit
-from exif import Image
+from hachoir.parser import createParser
+from hachoir.metadata import extractMetadata
 import utils
 import modules
 
-start = timeit.default_timer()
+
+t_start = timeit.default_timer()
 
 
-def setup():
+def start():
     """ Sets up PyStalk and parses arguments"""
     parser = argparse.ArgumentParser(prog="PyStalk",
                                      description="Tool to graph "
@@ -40,7 +41,7 @@ def setup():
     run(args, log)
 
 
-def run(args, log):
+def run(args, log: logging.Logger):
     """Process files and generates graphs"""
 
     for path in args.files:
@@ -56,48 +57,49 @@ def run(args, log):
         "STATS": modules.Stats(photos, invalid_photos, log),
         "GPS": modules.GPS_Check(photos, log),
         "Timestamp": modules.date_time(photos, log),
-        "Model": modules.PieChart(photos, "Model", log),
-        "Flash": modules.PieChart(photos, "Flash", log),
-        "Focal": modules.PieChart(photos, "Focal", log),
-        "Software": modules.PieChart(photos, "Software", log)
+        "Model": modules.PieChart(photos, "Camera model", log),
+        "Manufacturer": modules.PieChart(photos, "Camera manufacturer", log),
+        "Focal": modules.PieChart(photos, "Camera focal", log),
+        "Producer": modules.PieChart(photos, "Producer", log)
         }
 
-    utils.graph(plots, log, start, args.test)
+    utils.graph(plots, log, t_start, args.test)
 
 
-def directory_search(files: list, log):
+def directory_search(files: list, log: logging.Logger):
     """ Used to append all file in a directory """
     valid, invalid = [], []
     for item in os.listdir(files):
-        with open(os.path.join(files, item), 'rb') as raw_photo:
-            try:
-                exif_image = Image(raw_photo)
-                if exif_image.has_exif:
-                    valid.append(os.path.join(files, item))
-                    log.debug("%s has exif data", item)
-                else:
-                    invalid.append(os.path.join(files, item))
-            except AssertionError:
-                log.warning("Error with %s", raw_photo)
+        item_path = os.path.join(files, item)
+        parser = createParser(item_path)
+        metadata = extractMetadata(parser).exportDictionary()["Metadata"]
+        if metadata:
+            metadata["item"] = item_path
+            valid.append(metadata)
+            log.debug("%s has metadata", item)
+        else:
+            metadata["item"] = item_path
+            invalid.append(metadata)
+            log.debug("%s has no metadata", item)
     return valid, invalid
 
 
-def file_search(files: list, log):
+def file_search(files: list, log: logging.Logger):
     """ Used to append files if the path is not a directory """
     valid, invalid = [], []
-    for x, item in enumerate(files):
-        with open(item, 'rb') as raw_photo:
-            try:
-                exif_image = Image(raw_photo)
-                if exif_image.has_exif:
-                    valid.append(files[x])
-                    log.debug("%s has exif data", item)
-                else:
-                    invalid.append(files[x])
-            except AssertionError:
-                log.warning("Error with %s", raw_photo)
+    for _, item in enumerate(files):
+        parser = createParser(item)
+        metadata = extractMetadata(parser).exportDictionary()["Metadata"]
+        if metadata:
+            metadata["item"] = item
+            valid.append(metadata)
+            log.debug("%s has metadata", item)
+        else:
+            metadata["item"] = item
+            invalid.append(metadata)
+            log.debug("%s has no metadata data", item)
     return valid, invalid
 
 
 if __name__ == "__main__":
-    setup()
+    start()

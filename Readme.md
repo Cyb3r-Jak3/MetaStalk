@@ -6,18 +6,17 @@
 
 ## About
 
-PyStalk is a tool that can be used to generate graphs from the meta data of JPG and Tiff images.  
+PyStalk is a tool that can be used to generate graphs from the metadata of JPEG, TIFF images. More formats are supported but untested.
 It currently creates graphs for:
 
 - GPS coordinates (map)
-- Flash, focal, mode, software information (Pie Chart)
+- Focal Length, Camera model, Camera manufacturer, Producer information (Pie Chart)
 - Timestamp information (Chart)
 
 Examples photos from [ianare/exif-samples](https://github.com/ianare/exif-samples/tree/master/jpg/gps), [exiftool](https://owl.phy.queensu.ca/~phil/exiftool/sample_images.html), [drewmpales/metadata-extractor-images](https://github.com/drewnoakes/metadata-extractor-images).
 
-Please open issues on [GitLab](https://gitlab.com/Cyb3r-Jak3/PyStalk/issues) or if you do not have a GitLab account, send me an email and I will open an issue.
-
 All development is done on GitLab and pushed to GitHub.
+Please open issues on [GitLab](https://gitlab.com/Cyb3r-Jak3/PyStalk/issues) or if you do not have a GitLab account, send me an email and I will open an issue.
 
 ## How to use
 

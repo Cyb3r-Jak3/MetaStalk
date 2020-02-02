@@ -1,0 +1,4 @@
+pytest
+bandit
+pylint
+flake8

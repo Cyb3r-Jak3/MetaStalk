@@ -1,6 +1,6 @@
-# pylint: disable=missing-module-docstring
+"""Imports the modules"""
 from .GPSCheck import GPS_Check
-from .PhotoTable import Stats
+from .Stats import Stats
 from .DateTime import date_time
 from .PieChart import PieChart
 
