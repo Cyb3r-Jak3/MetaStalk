@@ -71,7 +71,6 @@ def directory_search(files: list, log: logging.Logger):
     valid, invalid = [], []
     for item in os.listdir(files):
         item_path = os.path.join(files, item)
-        log.debug(item_path)
         parser = createParser(item_path)
         metadata = extractMetadata(parser).exportDictionary()["Metadata"]
         if metadata:
@@ -88,14 +87,16 @@ def directory_search(files: list, log: logging.Logger):
 def file_search(files: list, log: logging.Logger):
     """ Used to append files if the path is not a directory """
     valid, invalid = [], []
-    for x, item in enumerate(files):
+    for _, item in enumerate(files):
         parser = createParser(item)
         metadata = extractMetadata(parser).exportDictionary()["Metadata"]
         if metadata:
-            valid.append(files[x])
+            metadata["item"] = item
+            valid.append(metadata)
             log.debug("%s has metadata", item)
         else:
-            invalid.append(files[x])
+            metadata["item"] = item
+            invalid.append(metadata)
             log.debug("%s has no metadata data", item)
     return valid, invalid
 
