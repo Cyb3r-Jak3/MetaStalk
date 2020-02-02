@@ -56,7 +56,7 @@ Coverage:
   - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
   - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
   - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
-  - time python3 ./PyStalk.py ./utils/ExamplePhotos/ -t -d
+  - time python3 ./PyStalk.py ./utils/ExamplePhotos/ -d
   artifacts:
     paths:
     - bandit.json
