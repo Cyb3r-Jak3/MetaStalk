@@ -25,7 +25,7 @@ def create_chart(table, pietype):
     return fig
 
 
-def PieChart(photos, pietype, log):
+def PieChart(photos: list, pietype: str, log):
     """Gets information and makes a pie chart"""
     log.info("Staring %s Chart", pietype)
     table = []
