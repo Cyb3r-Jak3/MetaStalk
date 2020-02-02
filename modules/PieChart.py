@@ -34,6 +34,6 @@ def PieChart(photos: list, pietype: str, log):
         try:
             table.append(each[pietype])
         except KeyError:
-            log.info("%s has not %s data", each["item"], pietype)
+            log.info("%s has no %s data", each["item"], pietype)
 
     return create_chart(table, pietype)
