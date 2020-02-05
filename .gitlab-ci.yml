@@ -44,7 +44,8 @@ Coverage:
     - coverage html
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
-    - ./cc-test-reporter after-build 
+    - ./cc-test-reporter after-build
+    - bash <(curl -s https://codecov.io/bash)
 
 .check:
   stage: Code_Checking
