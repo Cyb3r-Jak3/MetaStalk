@@ -52,8 +52,8 @@ Coverage:
   before_script:
     - pip install -U pip
   script:
-  - pip install -r requirements.txt --quiet
-  - pip install -r requirements-dev.txt --quiet
+  - pip install -r requirements.txt bandit pylint flake8 --quiet
+#  - pip install -r requirements-dev.txt --quiet
   - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
   - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
   - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
