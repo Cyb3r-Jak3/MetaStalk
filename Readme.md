@@ -29,14 +29,7 @@ python PyStalk.py <Path to files>
 #i.e. python PyStalk.py tests/ExamplePhotos/
 ```
 
-### TODO
-
-- Better web layout
-  - Better sized graphs
-- Ability to choose the graphs used
-- Possible PyPi package (??)
-- Possible web scrapper for images
-  - Or import from a current one
+This project also use Pipfile and Pipfile.lock if you would rather pipenv over requirements.txt
 
 ## Disclaimer
 

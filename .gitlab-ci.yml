@@ -29,20 +29,20 @@ Coverage:
     - htmlcov/*
     - bandit.json
   before_script:
-    - pip install -U pip
+    - pip install -U pip pipenv
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter before-build
   script:
-    - pip install -r requirements.txt --quiet
-    - pip install coverage --quiet
-    - coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
-    - coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/Panasonic_DMC-FZ30.jpg ./utils/ExamplePhotos/DSCN0010.jpg -t -d
+    - pipenv install --dev
+    - pipenv install coverage
+    - pipenv run coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
+    - pipenv run coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/Panasonic_DMC-FZ30.jpg ./utils/ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
-    - coverage report
-    - coverage html
-    - coverage xml
+    - pipenv run coverage report
+    - pipenv run coverage html
+    - pipenv run coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
     - bash <(curl -s https://codecov.io/bash)
@@ -50,14 +50,13 @@ Coverage:
 .check:
   stage: Code_Checking
   before_script:
-    - pip install -U pip
+    - pip install -U pip pipenv
   script:
-  - pip install -r requirements.txt bandit pylint flake8 --quiet
-#  - pip install -r requirements-dev.txt --quiet
-  - pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
-  - flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
-  - bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
-  - time python3 ./PyStalk.py ./utils/ExamplePhotos/ -d -t
+    - pipenv install --dev --skip-lock
+    - pipenv run pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
+    - pipenv run flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
+    - pipenv run bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
+    - time pipenv run python3 ./PyStalk.py ./utils/ExamplePhotos/ -d -t
   artifacts:
     paths:
     - bandit.json
