@@ -5,18 +5,7 @@ stages:
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
-
-variables:
-  DS_DISABLE_DIND: "true"
-
-gemnasium-python-dependency_scanning:
-  stage: test
-  before_script:
-  - pip install numpy
-  only:
-    refs:
-      - master
-      - schedules
+  - template: License-Scanning.gitlab-ci.yml
 
 
 Coverage:
