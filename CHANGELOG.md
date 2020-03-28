@@ -2,6 +2,21 @@
 
 <!-- markdownlint-disable MD024 -->
 
+## [N/A] - UNRELEASED
+
+All backend changes. No changes to PyStalk itself.
+
+## Added
+
+- License scanning
+- [Codecov](https://codecov.io/gl/Cyb3r-Jak3/pystalk)
+- Pipfile and Pipfile.lock for pipenv
+- Added .gitlab folder for service desk.
+
+### Changed
+
+- Reverted dependency scanner to default template.
+
 ## [v1.4] - 2020-02-02
 
 ### Changed
