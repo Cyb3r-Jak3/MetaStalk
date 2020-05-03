@@ -8,8 +8,8 @@ import timeit
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
-import utils
-import modules
+import utils  # pylint: disable=import-error
+import modules  # pylint: disable=import-error
 
 
 t_start = timeit.default_timer()

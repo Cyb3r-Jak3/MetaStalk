@@ -23,7 +23,7 @@ Coverage:
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
-    - pipenv install --dev
+    - pipenv install --dev --skip-lock
     - pipenv install coverage
     - pipenv run coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
     - pipenv run coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
