@@ -27,7 +27,8 @@ setup(
         "Operating System :: OS Independent",
         "Natural Language :: English",
         "Programming Language :: Python :: 3 :: Only",
-        "Development Status :: 1 - Planning"
+        "Development Status :: 4 - Beta",
+        "Environment :: Console"
     ],
     packages=find_packages(),
     long_description=read('README.md'),

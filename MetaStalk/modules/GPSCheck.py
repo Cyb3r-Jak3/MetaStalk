@@ -1,8 +1,11 @@
 """Makes geo chart with plots of gps data"""
+import logging
 import plotly.express as px
 
+log = logging.getLogger("MetaStalk")
 
-def GPS_Check(photos: list, log):
+
+def GPS_Check(photos: list):
     """Takes a list of photos and creates a geo plot of them"""
     log.info("Starting GPS Chart")
     lats = []

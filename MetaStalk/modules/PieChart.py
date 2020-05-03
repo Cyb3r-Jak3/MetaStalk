@@ -1,5 +1,8 @@
 """Module that makes a pie chart."""
+import logging
 import plotly.graph_objects as go
+
+log = logging.getLogger("MetaStalk")
 
 
 def create_chart(table, pietype):
@@ -25,7 +28,7 @@ def create_chart(table, pietype):
     return fig
 
 
-def PieChart(photos: list, pietype: str, log):
+def PieChart(photos: list, pietype: str):
     """Gets information and makes a pie chart"""
     log.info("Staring %s Chart", pietype)
     table = []

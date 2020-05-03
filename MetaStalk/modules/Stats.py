@@ -1,13 +1,16 @@
 """Creates a table figure that shows
  photos that did and did not have exif"""
+import logging
 import plotly.graph_objects as go
 
+log = logging.getLogger("MetaStalk")
 
-def Stats(photos: list, invalid: list, log):
+
+def Stats(photos: list, invalid: list):
     """Creates the table of photos"""
     log.info("Staring Stats")
-    log.debug("There are {} photos with metadata and {} without"
-              .format(len(photos), len(invalid)))
+    log.debug("There are %s photos with metadata and %s without",
+              len(photos), len(invalid))
     simple_photos = []
     for i, _ in enumerate(photos):
         simple_photos.append(photos[i]["item"])

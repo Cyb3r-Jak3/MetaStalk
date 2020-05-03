@@ -1,8 +1,11 @@
 """Makes a table that plots gps timestamp"""
+import logging
 import plotly.graph_objects as go
 
+log = logging.getLogger("MetaStalk")
 
-def date_time(photos, log):
+
+def date_time(photos):
     """Makes a table with gps timestamp of photos"""
     log.info("Starting DateTime Charts")
     datetime = []

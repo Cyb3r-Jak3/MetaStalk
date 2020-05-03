@@ -1,12 +1,16 @@
 """Uses dash to create a webpage that contain all the graphs"""
 import timeit
+import logging
 import webbrowser
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 
 
-def graph(plots: dict, log, t_start: float, test=False):
+log = logging.getLogger("MetaStalk")
+
+
+def graph(plots: dict, t_start: float, test=False):
     """Creates the graphs"""
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets)

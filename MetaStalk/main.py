@@ -5,14 +5,14 @@ import argparse
 import os
 import logging
 import timeit
-# import sys
+import sys
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
 
-# sys.path.append(".")
-import utils
-import modules
+sys.path.append(".")
+import MetaStalk.utils as utils
+import MetaStalk.modules as modules
 
 
 t_start = timeit.default_timer()
@@ -37,7 +37,7 @@ def start():
     args = parser.parse_args()
 
     log = utils.make_logger("MetaStalk", args.loglevel)
-    log.info("Starting up")
+    log.info("MetaStalk starting")
     if not args.files:
         log.error("ERROR: No path was inputted.")
         raise IOError("No path was inputted.")
@@ -57,16 +57,16 @@ def run(args, log: logging.Logger):
         photos, invalid_photos = file_search(args.files, log)
 
     plots = {
-        "STATS": modules.Stats(photos, invalid_photos, log),
-        "GPS": modules.GPS_Check(photos, log),
-        "Timestamp": modules.date_time(photos, log),
-        "Model": modules.PieChart(photos, "Camera model", log),
-        "Manufacturer": modules.PieChart(photos, "Camera manufacturer", log),
-        "Focal": modules.PieChart(photos, "Camera focal", log),
-        "Producer": modules.PieChart(photos, "Producer", log)
+        "STATS": modules.Stats(photos, invalid_photos),
+        "GPS": modules.GPS_Check(photos),
+        "Timestamp": modules.date_time(photos),
+        "Model": modules.PieChart(photos, "Camera model"),
+        "Manufacturer": modules.PieChart(photos, "Camera manufacturer"),
+        "Focal": modules.PieChart(photos, "Camera focal"),
+        "Producer": modules.PieChart(photos, "Producer")
     }
 
-    utils.graph(plots, log, t_start, args.test)
+    utils.graph(plots, t_start, args.test)
 
 
 def directory_search(files: list, log: logging.Logger):
