@@ -29,20 +29,22 @@ Coverage:
     paths:
     - MetaStalk.log
     - htmlcov/*
-  allow_failure: true
+    - Test_Build
   before_script:
     - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
-    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
-    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
+    - pip install dist/*.whl
+    - coverage run -a --source . metastalk ./ExamplePhotos/ -t -d
+    - coverage run -a --source . metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
     - coverage report
     - coverage html
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
+
 .lint:
   stage: lint
   before_script:
