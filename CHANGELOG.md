@@ -2,11 +2,13 @@
 
 <!-- markdownlint-disable MD024 -->
 
-## [N/A] - UNRELEASED
+## [v2.0.0] - UNRELEASED
 
-Rename to MetaStalk to create PyPi package and a lot backend changes.
+## Rename to MetaStalk
 
-## Added
+Rename to MetaStalk to create PyPi package and a lot backend development changes.
+
+### Added
 
 - License scanning
 - [Codecov](https://codecov.io/gl/Cyb3r-Jak3/pystalk)
@@ -20,6 +22,14 @@ Rename to MetaStalk to create PyPi package and a lot backend changes.
 - Name from PyStalk to MetaStalk as PyStalk is taken.
 - Moved all files to MetaStalk directory.
 - Moved ExamplePhotos to own directory.
+- License scanning now only on master branch and tags.
+- Can only run on from package.
+
+### Removed
+
+- Dropped support for Python 3.5 as hachoir does not support it.
+- Dropped using pipenv for pipeline.
+- Markdownlint check in codeclimate.
 
 ## [v1.4] - 2020-02-02
 
@@ -29,7 +39,7 @@ Rename to MetaStalk to create PyPi package and a lot backend changes.
 
 ### Removed
 
-- Removed Flash Chart (library does not support it.)
+- Removed Flash Chart (hachoir does not support it).
 
 ## [v1.3.3] - 2020-01-10
 

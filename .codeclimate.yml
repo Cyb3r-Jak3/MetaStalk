@@ -13,15 +13,6 @@ plugins:
         enabled: false
       python:S3776:
         enabled: false
-  markdownlint:
-    enabled: true
-    checks:
-      MD024:
-        enabled: false
-      MD009:
-        enabled: false
-      MD013:
-        enabled: false
   pep8:
     enabled: true
   bandit:

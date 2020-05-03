@@ -1,8 +1,9 @@
 version = 1
 
 test_patterns = [
-  "PyStalk/**",
+  "MetaStalk/**",
 ]
+exclude_patterns = ["MetaStalk/tests/*"]
 
 [[analyzers]]
 name = "python"

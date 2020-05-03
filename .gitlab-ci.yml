@@ -2,6 +2,7 @@ stages:
 - lint
 - test
 - Test_Build
+- Deploy_to_PyPi
 
 include:
   - template: SAST.gitlab-ci.yml
@@ -42,7 +43,7 @@ Coverage:
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
-    - ocular --data-file ".coverage" --config-file ".coveragerc"
+    - ocular --data-file ".coverage"
 
 .lint:
   stage: lint
@@ -72,8 +73,6 @@ python-3.8-lint:
   script:
     - python setup.py sdist bdist_wheel
     - python -m twine check dist/*
-  except:
-    - tags
 
 python-3.6-build:
   extends: ".build"
@@ -106,8 +105,6 @@ python-3.8-build:
     - command -v metastalk
     - metastalk ./ExamplePhotos/ -t -d
     - metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
-  except:
-    - tags
 
 python-3.6-test:
   extends: ".test"
@@ -120,4 +117,24 @@ python-3.7-test:
 python-3.8-test:
   extends: ".test"
   image: python:3.8
-    
+
+
+Deploy_to_PyPi:
+  image: python:3.7
+  stage: Deploy_to_PyPi
+  variables:
+    TWINE_USERNAME: $PRODUCTION_USERNAME
+    TWINE_PASSWORD: $PRODUCTION_PASSWORD
+  before_script:
+    - pip install -U pip setuptools twine --quiet
+  script:
+    - python setup.py sdist bdist_wheel
+    - python -m twine check dist/*
+    - python -m twine upload --verbose --username $PRODUCTION_USER --password $PRODUCTION_PASSWORD dist/*
+  only:
+    refs:
+      - tags
+      - master
+    variables:
+      - $CI_COMMIT_TAG
+  
