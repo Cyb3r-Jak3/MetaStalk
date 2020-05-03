@@ -23,13 +23,12 @@ license_scanning:
 
 Coverage:
   image: python:3.7
-  stage: test
+  stage: Test_Build
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
     paths:
     - MetaStalk.log
     - htmlcov/*
-    - Test_Build
   before_script:
     - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
