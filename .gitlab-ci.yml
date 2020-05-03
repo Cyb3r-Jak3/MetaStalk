@@ -23,7 +23,6 @@ Coverage:
     paths:
     - MetaStalk.log
     - htmlcov/*
-    - bandit.json
   before_script:
     - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh

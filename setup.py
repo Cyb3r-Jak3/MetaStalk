@@ -33,7 +33,7 @@ setup(
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
     entry_points={
-        "console_scripts": ["metastalk=MetaStalk.main:run"]
+        "console_scripts": ["metastalk=MetaStalk.main:start"]
     },
     url="https://gitlab.com/Cyb3r-Jak3/MetaStalk",
     project_urls={
