@@ -5,21 +5,21 @@ import argparse
 import os
 import logging
 import timeit
-import sys
+#import sys
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
 
-sys.path.append(".")
-import MetaStalk.utils as utils
-import MetaStalk.modules as modules
+#sys.path.append(".")
+import utils
+import modules
 
 
 t_start = timeit.default_timer()
 
 
 def start():
-    """ Sets up PyStalk and parses arguments"""
+    """ Sets up MetaStalk and parses arguments"""
     parser = argparse.ArgumentParser(prog="MetaStalk",
                                      description="Tool to graph "
                                                  "image metadata.")
