@@ -4,20 +4,25 @@ and creates graphs from the metadata"""
 import argparse
 import os
 import logging
-import sys
 import timeit
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
-import utils
-import modules
+
+
+import MetaStalk.utils as utils
+import MetaStalk.modules as modules
 
 
 t_start = timeit.default_timer()
 
 
 def start():
-    """ Sets up PyStalk and parses arguments"""
-    parser = argparse.ArgumentParser(prog="PyStalk",
+    """start
+
+    Sets up MetaStalk and parses arguments.
+    Will raise an IOError if no path is passed.
+    """
+    parser = argparse.ArgumentParser(prog="MetaStalk",
                                      description="Tool to graph "
                                                  "image metadata.")
     parser.add_argument('files', nargs='*', default=None,
@@ -33,17 +38,23 @@ def start():
                         const=logging.INFO)
     args = parser.parse_args()
 
-    log = utils.make_logger("PyStalk", args.loglevel)
-    log.info("Starting up")
+    log = utils.make_logger("MetaStalk", args.loglevel)
+    log.info("MetaStalk starting")
     if not args.files:
         log.error("ERROR: No path was inputted.")
-        sys.exit(1)
+        raise IOError("No path was inputted.")
     run(args, log)
 
 
 def run(args, log: logging.Logger):
-    """Process files and generates graphs"""
+    """run
 
+    Process files and generates graphs
+
+    Arguments:
+        args {argparse.Namespace} -- The arguments from start()
+        log {logging.Logger} -- Logger
+    """
     for path in args.files:
         isdir = os.path.isdir(path)
         log.debug("Detected path as a directory")
@@ -54,20 +65,30 @@ def run(args, log: logging.Logger):
         photos, invalid_photos = file_search(args.files, log)
 
     plots = {
-        "STATS": modules.Stats(photos, invalid_photos, log),
-        "GPS": modules.GPS_Check(photos, log),
-        "Timestamp": modules.date_time(photos, log),
-        "Model": modules.PieChart(photos, "Camera model", log),
-        "Manufacturer": modules.PieChart(photos, "Camera manufacturer", log),
-        "Focal": modules.PieChart(photos, "Camera focal", log),
-        "Producer": modules.PieChart(photos, "Producer", log)
-        }
+        "STATS": modules.Stats(photos, invalid_photos),
+        "GPS": modules.GPS_Check(photos),
+        "Timestamp": modules.date_time(photos),
+        "Model": modules.PieChart(photos, "Camera model"),
+        "Manufacturer": modules.PieChart(photos, "Camera manufacturer"),
+        "Focal": modules.PieChart(photos, "Camera focal"),
+        "Producer": modules.PieChart(photos, "Producer")
+    }
 
-    utils.graph(plots, log, t_start, args.test)
+    utils.graph(plots, t_start, args.test)
 
 
-def directory_search(files: list, log: logging.Logger):
-    """ Used to append all file in a directory """
+def directory_search(files: list, log: logging.Logger) -> (list, list):
+    """directory_search
+
+    Used to append all files in a directory from args.
+
+    Arguments:
+        files {list} -- List of directories to parse
+        log {logging.Logger} -- Logger
+
+    Returns:
+        valid, invalid -- List of photos with metadata and ones without
+    """
     valid, invalid = [], []
     for item in os.listdir(files):
         item_path = os.path.join(files, item)
@@ -84,8 +105,18 @@ def directory_search(files: list, log: logging.Logger):
     return valid, invalid
 
 
-def file_search(files: list, log: logging.Logger):
-    """ Used to append files if the path is not a directory """
+def file_search(files: list, log: logging.Logger) -> (list, list):
+    """file_search
+
+    Used to append files if the path is not a directory.
+
+    Arguments:
+        files {list} -- List of files to parse
+        log {logging.Logger} -- Logger
+
+    Returns:
+        valid, invalid -- List of photos with metadata and ones without
+    """
     valid, invalid = [], []
     for _, item in enumerate(files):
         parser = createParser(item)
@@ -101,5 +132,4 @@ def file_search(files: list, log: logging.Logger):
     return valid, invalid
 
 
-if __name__ == "__main__":
-    start()
+start()

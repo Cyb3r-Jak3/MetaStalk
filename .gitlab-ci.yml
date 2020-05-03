@@ -1,68 +1,141 @@
 stages:
-- Code_Checking
+- lint
 - test
+- Test_Build
+- Deploy_to_PyPi
 
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
 
+dependency_scanning:
+  only:
+    refs:
+      - tags
+      - master
 
+license_scanning:
+  only:
+    refs:
+      - tags
+      - master
+
+# This job will fail until tests are implemented
 Coverage:
   image: python:3.7
   stage: test
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
     paths:
-    - PyStalk.log
+    - MetaStalk.log
     - htmlcov/*
-    - bandit.json
+  allow_failure: true
   before_script:
-    - pip install -U pip pipenv
+    - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
-    - ./cc-test-reporter before-build
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
-    - pipenv install --dev
-    - pipenv install coverage
-    - pipenv run coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/ -t -d
-    - pipenv run coverage run -a --source . ./PyStalk.py ./utils/ExamplePhotos/Panasonic_DMC-FZ30.jpg ./utils/ExamplePhotos/DSCN0010.jpg -t -d
+    - pip install dist/*.whl
+    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
+    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
-    - pipenv run coverage report
-    - pipenv run coverage html
-    - pipenv run coverage xml
+    - coverage report
+    - coverage html
+    - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
-    - bash <(curl -s https://codecov.io/bash)
 
-.check:
-  stage: Code_Checking
+.lint:
+  stage: lint
   before_script:
-    - pip install -U pip pipenv
+    - pip install -U pip -r requirements.txt -r requirements-dev.txt --quiet
   script:
-    - pipenv install --dev --skip-lock
-    - pipenv run pylint --ignored-classes=_socketobject PyStalk.py ./utils/ ./modules/
-    - pipenv run flake8 PyStalk.py ./utils/ ./modules/ --statistics --show-source
-    - pipenv run bandit -r -f json PyStalk.py ./utils/ ./modules/ > bandit.json
-    - time pipenv run python3 ./PyStalk.py ./utils/ExamplePhotos/ -d -t
-  artifacts:
-    paths:
-    - bandit.json
+    - pylint --rcfile=tox.ini ./MetaStalk
+    - flake8 ./MetaStalk --statistics --show-source
 
-
-python-3.5:
-  extends: ".check"
-  image: python:3.5
-
-python-3.6:
-  extends: ".check"
+python-3.6-lint:
+  extends: ".lint"
   image: python:3.6
 
-python-3.7:
-  extends: ".check"
+python-3.7-lint:
+  extends: ".lint"
   image: python:3.7
 
-python-3.8:
-  extends: ".check"
+python-3.8-lint:
+  extends: ".lint"
   image: python:3.8
+
+
+.build:
+  stage: test
+  before_script:
+    - pip install -U setuptools twine --quiet
+  script:
+    - python setup.py sdist bdist_wheel
+    - python -m twine check dist/*
+
+python-3.6-build:
+  extends: ".build"
+  image: python:3.6
+  artifacts:
+    paths:
+    - dist/
+
+python-3.7-build:
+  extends: ".build"
+  image: python:3.7
+  artifacts:
+    paths:
+    - dist/
+
+python-3.8-build:
+  extends: ".build"
+  image: python:3.8
+  artifacts:
+    paths:
+    - dist/
+
+.test:
+  stage: Test_Build
+  before_script:
+    - pip install -U pip --quiet
+  script:
+    - pip install dist/*.whl
+    - pip show -f metastalk
+    - command -v metastalk
+    - metastalk ./ExamplePhotos/ -t -d
+    - metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
+
+python-3.6-test:
+  extends: ".test"
+  image: python:3.6
+
+python-3.7-test:
+  extends: ".test"
+  image: python:3.7
+
+python-3.8-test:
+  extends: ".test"
+  image: python:3.8
+
+
+Deploy_to_PyPi:
+  image: python:3.7
+  stage: Deploy_to_PyPi
+  variables:
+    TWINE_USERNAME: $PRODUCTION_USERNAME
+    TWINE_PASSWORD: $PRODUCTION_PASSWORD
+  before_script:
+    - pip install -U pip setuptools twine --quiet
+  script:
+    - python setup.py sdist bdist_wheel
+    - python -m twine check dist/*
+    - python -m twine upload --verbose --username $PRODUCTION_USER --password $PRODUCTION_PASSWORD dist/*
+  only:
+    refs:
+      - tags
+      - master
+    variables:
+      - $CI_COMMIT_TAG
+  

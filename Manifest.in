@@ -1,0 +1,2 @@
+graft MetaStalk/utils/assets
+prune MetaStalk/tests
