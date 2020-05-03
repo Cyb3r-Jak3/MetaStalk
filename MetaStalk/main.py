@@ -5,12 +5,12 @@ import argparse
 import os
 import logging
 import timeit
-#import sys
+# import sys
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
 
-#sys.path.append(".")
+# sys.path.append(".")
 import utils
 import modules
 
