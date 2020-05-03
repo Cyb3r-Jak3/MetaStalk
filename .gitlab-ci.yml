@@ -31,7 +31,7 @@ Coverage:
     - htmlcov/*
   allow_failure: true
   before_script:
-    - pip install -U pip coverage scrutinizer-ocular -r requirements.txt --quiet
+    - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
@@ -43,8 +43,6 @@ Coverage:
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
-    - ocular --data-file ".coverage" --repository Cyb3r-Jak3/MetaStalk/
-
 .lint:
   stage: lint
   before_script:
