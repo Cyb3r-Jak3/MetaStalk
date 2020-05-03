@@ -2,7 +2,7 @@
 
 <!-- markdownlint-disable MD024 -->
 
-## [v2.0.0] - UNRELEASED
+## [v2.0.0] - 2020-05-03
 
 ## Rename to MetaStalk
 
