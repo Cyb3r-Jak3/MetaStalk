@@ -1,9 +1,7 @@
 version = 1
 
 test_patterns = [
-  "Pystalk.py",
-  "modules/**",
-  "utils/**"
+  "PyStalk/**",
 ]
 
 [[analyzers]]

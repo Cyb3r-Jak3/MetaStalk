@@ -4,18 +4,22 @@
 
 ## [N/A] - UNRELEASED
 
-All backend changes. No changes to PyStalk itself.
+Rename to MetaStalk to create PyPi package and a lot backend changes.
 
 ## Added
 
 - License scanning
 - [Codecov](https://codecov.io/gl/Cyb3r-Jak3/pystalk)
-- Pipfile and Pipfile.lock for pipenv
+- Pipfile and Pipfile.lock for pipenv.
 - Added .gitlab folder for service desk.
+- setup.py for pypi.
 
 ### Changed
 
 - Reverted dependency scanner to default template.
+- Name from PyStalk to MetaStalk as PyStalk is taken.
+- Moved all files to MetaStalk directory.
+- Moved ExamplePhotos to own directory.
 
 ## [v1.4] - 2020-02-02
 

@@ -4,10 +4,10 @@ and creates graphs from the metadata"""
 import argparse
 import os
 import logging
-import sys
 import timeit
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
+
 import utils
 import modules
 
@@ -17,7 +17,7 @@ t_start = timeit.default_timer()
 
 def start():
     """ Sets up PyStalk and parses arguments"""
-    parser = argparse.ArgumentParser(prog="PyStalk",
+    parser = argparse.ArgumentParser(prog="MetaStalk",
                                      description="Tool to graph "
                                                  "image metadata.")
     parser.add_argument('files', nargs='*', default=None,
@@ -33,11 +33,11 @@ def start():
                         const=logging.INFO)
     args = parser.parse_args()
 
-    log = utils.make_logger("PyStalk", args.loglevel)
+    log = utils.make_logger("MetaStalk", args.loglevel)
     log.info("Starting up")
     if not args.files:
         log.error("ERROR: No path was inputted.")
-        sys.exit(1)
+        raise IOError("No path was inputted.")
     run(args, log)
 
 

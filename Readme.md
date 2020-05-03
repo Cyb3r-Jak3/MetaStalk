@@ -1,9 +1,10 @@
-# PyStalk
+# MetaStalk
 
-[![GitHub](https://img.shields.io/github/license/Cyb3r-Jak3/pystalk?style=flat)](https://github.com/Cyb3r-Jak3/PyStalk/blob/master/LICENSE) ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/pystalk/master?label=Build&style=flat)  
+[![GitHub](https://img.shields.io/github/license/Cyb3r-Jak3/pystalk?style=flat)](https://github.com/Cyb3r-Jak3/PyStalk/blob/master/LICENSE) ![Gitlab pipeline status (branch)](https://img.shields.io/gitlab/pipeline/Cyb3r-Jak3/metastalk/master?label=Build&style=flat)  
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/896b338971314c13a56e/test_coverage)](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/896b338971314c13a56e/maintainability)](https://codeclimate.com/github/Cyb3r-Jak3/PyStalk/maintainability)  
-[![CodeFactor](https://www.codefactor.io/repository/github/cyb3r-jak3/pystalk/badge)](https://www.codefactor.io/repository/github/cyb3r-jak3/pystalk) [![codecov](https://codecov.io/gl/Cyb3r-Jak3/pystalk/branch/master/graph/badge.svg)](https://codecov.io/gl/Cyb3r-Jak3/pystalk)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Cyb3r-Jak3/PyStalk/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Cyb3r-Jak3/PyStalk/?branch=master)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/Cyb3r-Jak3/PyStalk.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Cyb3r-Jak3/PyStalk/context:python)
 
 ## About
 
@@ -18,14 +19,16 @@ Examples photos from [ianare/exif-samples](https://github.com/ianare/exif-sample
 
 All development is done on GitLab and pushed to GitHub. Please read [contributing.md](CONTRIBUTING.md) for development.
 
+Python 3.6 and up.
+
 ## How to use
 
 ```bash
-git clone https://github.com/Cyb3r-Jak3/pystalk
-cd pystalk
+git clone https://gitlab.com/Cyb3r-Jak3/metastalk
+cd metastalk
 pip install -r requirements.txt
-python PyStalk.py <Path to files>
-#i.e. python PyStalk.py tests/ExamplePhotos/
+python ./MetaStalk/main.py <Path to files>
+#i.e. python ./MetaStalk/main.py ./ExamplePhotos/
 ```
 
 This project also use Pipfile and Pipfile.lock if you would rather pipenv over requirements.txt

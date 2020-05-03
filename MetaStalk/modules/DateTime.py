@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 
 def date_time(photos, log):
     """Makes a table with gps timestamp of photos"""
+    log.info("Starting DateTime Charts")
     datetime = []
     datetime_original = []
     datetime_digitized = []

@@ -4,7 +4,7 @@ import plotly.express as px
 
 def GPS_Check(photos: list, log):
     """Takes a list of photos and creates a geo plot of them"""
-    log.info("Starting GPS Check")
+    log.info("Starting GPS Chart")
     lats = []
     longs = []
     gps_photos = []
