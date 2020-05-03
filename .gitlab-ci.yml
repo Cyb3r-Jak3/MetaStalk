@@ -1,5 +1,5 @@
 stages:
-- Code_Checking
+- lint
 - test
 - Test_Build
 
@@ -8,6 +8,11 @@ include:
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
 
+dependency_scanning:
+  only:
+    refs:
+      - tags
+      - master
 
 license_scanning:
   only:
@@ -24,7 +29,7 @@ Coverage:
     - MetaStalk.log
     - htmlcov/*
   before_script:
-    - pip install -U pip coverage -r requirements.txt --quiet
+    - pip install -U pip coverage scrutinizer-ocular -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
@@ -36,27 +41,26 @@ Coverage:
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
-    - bash <(curl -s https://codecov.io/bash)
+    - ocular --data-file ".coverage" --config-file ".coveragerc"
 
-.check:
-  stage: Code_Checking
+.lint:
+  stage: lint
   before_script:
     - pip install -U pip -r requirements.txt -r requirements-dev.txt --quiet
   script:
     - pylint --rcfile=tox.ini ./MetaStalk
     - flake8 ./MetaStalk --statistics --show-source
-    - time python3 ./MetaStalk/main.py ./ExamplePhotos/ -d -t
 
-python-3.6:
-  extends: ".check"
+python-3.6-lint:
+  extends: ".lint"
   image: python:3.6
 
-python-3.7:
-  extends: ".check"
+python-3.7-lint:
+  extends: ".lint"
   image: python:3.7
 
-python-3.8:
-  extends: ".check"
+python-3.8-lint:
+  extends: ".lint"
   image: python:3.8
 
 

@@ -5,12 +5,10 @@ import argparse
 import os
 import logging
 import timeit
-import sys
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
 
-sys.path.append(".")
 import MetaStalk.utils as utils
 import MetaStalk.modules as modules
 
@@ -104,5 +102,4 @@ def file_search(files: list, log: logging.Logger):
     return valid, invalid
 
 
-if __name__ == "__main__":
-    start()
+start()
