@@ -5,11 +5,14 @@ import argparse
 import os
 import logging
 import timeit
+import sys
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
-import utils  # pylint: disable=import-error
-import modules  # pylint: disable=import-error
+
+sys.path.append(".")
+import MetaStalk.utils as utils
+import MetaStalk.modules as modules
 
 
 t_start = timeit.default_timer()
@@ -61,7 +64,7 @@ def run(args, log: logging.Logger):
         "Manufacturer": modules.PieChart(photos, "Camera manufacturer", log),
         "Focal": modules.PieChart(photos, "Camera focal", log),
         "Producer": modules.PieChart(photos, "Producer", log)
-        }
+    }
 
     utils.graph(plots, log, t_start, args.test)
 

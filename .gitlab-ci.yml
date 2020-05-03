@@ -9,6 +9,12 @@ include:
   - template: License-Scanning.gitlab-ci.yml
 
 
+license_scanning:
+  only:
+    refs:
+      - tags
+      - master
+
 Coverage:
   image: python:3.7
   stage: test
@@ -19,18 +25,16 @@ Coverage:
     - htmlcov/*
     - bandit.json
   before_script:
-    - pip install -U pip pipenv
+    - pip install -U pip coverage -r requirements.txt
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
-    - pipenv install --dev --skip-lock
-    - pipenv install coverage
-    - pipenv run coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
-    - pipenv run coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
+    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
+    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
-    - pipenv run coverage report
-    - pipenv run coverage html
-    - pipenv run coverage xml
+    - coverage report
+    - coverage html
+    - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
     - bash <(curl -s https://codecov.io/bash)
@@ -38,12 +42,11 @@ Coverage:
 .check:
   stage: Code_Checking
   before_script:
-    - pip install -U pip pipenv
+    - pip install -U pip -r requirements.txt -r requirements-dev.txt
   script:
-    - pipenv install --dev --skip-lock
-    - pipenv run pylint --ignored-classes=_socketobject ./MetaStalk
-    - pipenv run flake8 ./MetaStalk --statistics --show-source
-    - time pipenv run python3 ./MetaStalk/main.py ./ExamplePhotos/ -d -t
+    - pylint --rcfile=tox.ini ./MetaStalk
+    - flake8 ./MetaStalk --statistics --show-source
+    - time python3 ./MetaStalk/main.py ./ExamplePhotos/ -d -t
 
 python-3.6:
   extends: ".check"
