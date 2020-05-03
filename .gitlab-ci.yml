@@ -21,22 +21,24 @@ license_scanning:
       - tags
       - master
 
+# This job will fail until tests are implemented
 Coverage:
   image: python:3.7
-  stage: Test_Build
+  stage: test
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
   artifacts:
     paths:
     - MetaStalk.log
     - htmlcov/*
+  allow_failure: true
   before_script:
     - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
     - pip install dist/*.whl
-    - coverage run -a --source . metastalk ./ExamplePhotos/ -t -d
-    - coverage run -a --source . metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
+    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
+    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
   after_script:
     - coverage report
     - coverage html

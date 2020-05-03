@@ -1,9 +1,11 @@
-"""Test suite for PyStalk"""
+"""Test suite for MetaStalk
+Currently unused but planned.
+"""
 import pytest
-import PyStalk
+import MetaStalk
 
 
 def empty_directory_test():
     """Shows result for empty directory"""
     with pytest.raises(FileNotFoundError):
-        PyStalk.run()
+        MetaStalk.run()

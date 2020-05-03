@@ -17,7 +17,11 @@ t_start = timeit.default_timer()
 
 
 def start():
-    """ Sets up MetaStalk and parses arguments"""
+    """start
+
+    Sets up MetaStalk and parses arguments.
+    Will raise an IOError if no path is passed.
+    """
     parser = argparse.ArgumentParser(prog="MetaStalk",
                                      description="Tool to graph "
                                                  "image metadata.")
@@ -43,8 +47,14 @@ def start():
 
 
 def run(args, log: logging.Logger):
-    """Process files and generates graphs"""
+    """run
 
+    Process files and generates graphs
+
+    Arguments:
+        args {argparse.Namespace} -- The arguments from start()
+        log {logging.Logger} -- Logger
+    """
     for path in args.files:
         isdir = os.path.isdir(path)
         log.debug("Detected path as a directory")
@@ -67,8 +77,18 @@ def run(args, log: logging.Logger):
     utils.graph(plots, t_start, args.test)
 
 
-def directory_search(files: list, log: logging.Logger):
-    """ Used to append all file in a directory """
+def directory_search(files: list, log: logging.Logger) -> (list, list):
+    """directory_search
+
+    Used to append all files in a directory from args.
+
+    Arguments:
+        files {list} -- List of directories to parse
+        log {logging.Logger} -- Logger
+
+    Returns:
+        valid, invalid -- List of photos with metadata and ones without
+    """
     valid, invalid = [], []
     for item in os.listdir(files):
         item_path = os.path.join(files, item)
@@ -85,8 +105,18 @@ def directory_search(files: list, log: logging.Logger):
     return valid, invalid
 
 
-def file_search(files: list, log: logging.Logger):
-    """ Used to append files if the path is not a directory """
+def file_search(files: list, log: logging.Logger) -> (list, list):
+    """file_search
+
+    Used to append files if the path is not a directory.
+
+    Arguments:
+        files {list} -- List of files to parse
+        log {logging.Logger} -- Logger
+
+    Returns:
+        valid, invalid -- List of photos with metadata and ones without
+    """
     valid, invalid = [], []
     for _, item in enumerate(files):
         parser = createParser(item)

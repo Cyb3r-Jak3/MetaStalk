@@ -2,9 +2,20 @@
 import logging
 
 
-def make_logger(name, log_level):
-    """Creates the logger.
-       Might look to make this happen in the main script
+def make_logger(name: str, log_level: int) -> logging.Logger:
+    """make_logger
+
+    Creates the logger.
+
+    Might look to make this happen in the main script
+
+
+    Arguments:
+        name {str} -- name of the logger
+        log_level {int} -- Verbosity of the logger
+
+    Returns:
+        logging.Logger -- The logger that gets used.
     """
     logger = logging.getLogger(name)
     logger.setLevel(log_level)

@@ -5,8 +5,17 @@ import plotly.express as px
 log = logging.getLogger("MetaStalk")
 
 
-def GPS_Check(photos: list):
-    """Takes a list of photos and creates a geo plot of them"""
+def GPS_Check(photos: list) -> px.scatter_mapbox:
+    """GPS_Check
+
+    Takes a list of photos and creates a geo plot of them
+
+    Arguments:
+        photos {list} -- A list of dictionaries with phot information.
+
+    Returns:
+        px.scatter_mapbox -- Map plot with photos plotted.
+    """
     log.info("Starting GPS Chart")
     lats = []
     longs = []

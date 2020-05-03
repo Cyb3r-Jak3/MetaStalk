@@ -11,7 +11,17 @@ log = logging.getLogger("MetaStalk")
 
 
 def graph(plots: dict, t_start: float, test=False):
-    """Creates the graphs"""
+    """graph
+
+    Displays all the plots that are passed to it.
+
+    Arguments:
+        plots {dict} -- All the plot that get displayed
+        t_start {float} -- The start time of MetaStalk
+
+    Keyword Arguments:
+        test {bool} -- Whether or not to show the web page (default: {False})
+    """
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
     app.title = "MetaStalk"

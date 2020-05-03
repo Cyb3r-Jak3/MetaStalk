@@ -6,8 +6,18 @@ import plotly.graph_objects as go
 log = logging.getLogger("MetaStalk")
 
 
-def Stats(photos: list, invalid: list):
-    """Creates the table of photos"""
+def Stats(photos: list, invalid: list) -> go.Figure():
+    """Stats
+
+    Creates the table of photos showing ones with metadata and ones without
+
+    Arguments:
+        photos {list} -- List of photos with metadata.
+        invalid {list} -- List of photos without metadata.
+
+    Returns:
+        go.Figure() -- A plotly table
+    """
     log.info("Staring Stats")
     log.debug("There are %s photos with metadata and %s without",
               len(photos), len(invalid))
