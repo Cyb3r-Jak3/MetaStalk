@@ -28,6 +28,7 @@ Coverage:
     paths:
     - MetaStalk.log
     - htmlcov/*
+  allow_failure: true
   before_script:
     - pip install -U pip coverage scrutinizer-ocular -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
