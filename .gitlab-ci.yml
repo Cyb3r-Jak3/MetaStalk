@@ -43,7 +43,7 @@ Coverage:
     - coverage xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
-    - ocular --data-file ".coverage"
+    - ocular --data-file ".coverage" --repository Cyb3r-Jak3/MetaStalk/
 
 .lint:
   stage: lint
