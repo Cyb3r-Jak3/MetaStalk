@@ -30,9 +30,9 @@ def date_time(photos, log):
                 "Creation date",
                 "Date time Original",
                 "Date time Digitized"
-                ]),
+            ]),
             cells=dict(values=[simple_photos, datetime, datetime_original,
                                datetime_digitized]))]
-        )
+    )
 
     return fig

@@ -25,7 +25,7 @@ Coverage:
     - htmlcov/*
     - bandit.json
   before_script:
-    - pip install -U pip coverage -r requirements.txt
+    - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
@@ -42,7 +42,7 @@ Coverage:
 .check:
   stage: Code_Checking
   before_script:
-    - pip install -U pip -r requirements.txt -r requirements-dev.txt
+    - pip install -U pip -r requirements.txt -r requirements-dev.txt --quiet
   script:
     - pylint --rcfile=tox.ini ./MetaStalk
     - flake8 ./MetaStalk --statistics --show-source
@@ -95,7 +95,7 @@ python-3.8-build:
 .test:
   stage: Test_Build
   before_script:
-    - pip install -U pip
+    - pip install -U pip --quiet
   script:
     - pip install dist/*.whl
     - pip show -f metastalk

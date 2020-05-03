@@ -22,7 +22,7 @@ def graph(plots: dict, log, t_start: float, test=False):
         html.Div(children=graphs),
         html.P("Time Taken = {0:.2f} seconds".format(t_stop - t_start),
                style={"textAlign": "center"})
-        ])
+    ])
     if not test:
         webbrowser.open("http://localhost:8052", new=2)
         app.run_server(port=8052)
