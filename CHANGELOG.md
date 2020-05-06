@@ -2,6 +2,25 @@
 
 <!-- markdownlint-disable MD024 -->
 
+## [v2.1.0]- 2020-05-06
+
+### Added
+
+- Ability to pass both directories and individual files.
+- Unittests for testing.
+- Footer for run time.
+- Export feature.
+- Added metastalk dev and image install.
+- [Codacy](https://www.codacy.com/)
+- Two new arguments `--no-open` and `--alphabetic`.
+  - `--no-open` will make it so a new browser tab is not opened.
+  - `--alphabetic` will sort all the charts alphabetically.
+
+### Changed
+
+- Created MetaStalk Class.
+- All titles for charts are centered.
+
 ## [v2.0.0] - 2020-05-03
 
 ## Rename to MetaStalk
@@ -11,7 +30,7 @@ Rename to MetaStalk to create PyPi package and a lot backend development changes
 ### Added
 
 - License scanning
-- [Codecov](https://codecov.io/gl/Cyb3r-Jak3/pystalk)
+- [Codecov](https://codecov.io/gl/Cyb3r-Jak3/metastalk)
 - Pipfile and Pipfile.lock for pipenv.
 - Added .gitlab folder for service desk.
 - setup.py for pypi.

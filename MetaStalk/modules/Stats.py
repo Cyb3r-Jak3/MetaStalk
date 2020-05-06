@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 log = logging.getLogger("MetaStalk")
 
 
-def Stats(photos: list, invalid: list) -> go.Figure():
+def stats(photos: list, invalid: list) -> go.Figure():
     """Stats
 
     Creates the table of photos showing ones with metadata and ones without
@@ -30,4 +30,5 @@ def Stats(photos: list, invalid: list) -> go.Figure():
                 "Photos with Metadata",
                 "Photos without Metadata"]),
             cells=dict(values=[simple_photos, invalid]))])
+    fig.update_layout(title="Photos With and Without Metadata.", title_x=0.5)
     return fig
