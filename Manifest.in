@@ -1,2 +1,1 @@
-graft MetaStalk/utils/assets
-prune MetaStalk/tests
+recursive-include MetaStalk/utils/assets *

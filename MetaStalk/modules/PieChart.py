@@ -6,7 +6,7 @@ log = logging.getLogger("MetaStalk")
 
 
 def create_chart(table: list, pielabel: str) -> go.Figure():
-    """create_chart
+    """Create_chart
 
     Creates the pie chart by frequency of items in a dictionary.
 
@@ -14,8 +14,9 @@ def create_chart(table: list, pielabel: str) -> go.Figure():
         table {list} -- [description]
         pielabel {str} -- The label of the pie chart.
 
-    Returns:
+    Returns
         go.Figure -- A plotly PieChart
+
     """
     freq = {}
     for item in table:
@@ -33,12 +34,12 @@ def create_chart(table: list, pielabel: str) -> go.Figure():
         values.append(value)
 
     fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
-    fig.update_layout(title="{} Information".format(pielabel))
+    fig.update_layout(title=f"{pielabel} Information", title_x=0.5)
 
     return fig
 
 
-def PieChart(photos: list, pietype: str) -> go.Figure():
+def pie_chart(photos: list, pietype: str) -> go.Figure():
     """PieChart
 
     Parses information and returns a pie chart
@@ -49,6 +50,7 @@ def PieChart(photos: list, pietype: str) -> go.Figure():
 
     Returns:
         go.Figure -- A plotly PieChart
+
     """
     log.info("Staring %s Chart", pietype)
     table = []
@@ -56,7 +58,8 @@ def PieChart(photos: list, pietype: str) -> go.Figure():
     for each in photos:
         try:
             table.append(each[pietype])
+            log.debug("%s has %s data", each["item"], pietype)
         except KeyError:
-            log.debug("%s has no %s data", each["item"], pietype)
+            log.info("%s has no %s data", each["item"], pietype)
 
     return create_chart(table, pietype)

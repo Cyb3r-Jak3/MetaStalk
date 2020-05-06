@@ -1,8 +1,12 @@
-"""Imports the modules"""
-from .GPSCheck import GPS_Check
-from .Stats import Stats
-from .DateTime import date_time
-from .PieChart import PieChart
+"""MetaStalk.Modules.
 
-__all__ = ["GPS_Check", "Stats", "date_time",
-           "PieChart"]
+Imports the modules that create the charts.
+
+"""
+from .GPSCheck import gps_check
+from .Stats import stats
+from .DateTime import date_time
+from .PieChart import pie_chart
+
+__all__ = ["gps_check", "stats", "date_time",
+           "pie_chart"]

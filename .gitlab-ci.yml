@@ -2,12 +2,13 @@ stages:
 - lint
 - test
 - Test_Build
-- Deploy_to_PyPi
+- Deploy
 
 include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
+
 
 dependency_scanning:
   only:
@@ -21,7 +22,6 @@ license_scanning:
       - tags
       - master
 
-# This job will fail until tests are implemented
 Coverage:
   image: python:3.7
   stage: test
@@ -30,21 +30,22 @@ Coverage:
     paths:
     - MetaStalk.log
     - htmlcov/*
-  allow_failure: true
+    - metastalk_exports/*
   before_script:
     - pip install -U pip coverage -r requirements.txt --quiet
     - curl https://deepsource.io/cli | sh
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
   script:
-    - pip install dist/*.whl
-    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/ -t -d
-    - coverage run -a --source . ./MetaStalk/main.py ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
+    - pip install .
+    - coverage run  --source=./MetaStalk/ -m unittest -vv
   after_script:
     - coverage report
     - coverage html
     - coverage xml
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r coverage.xml
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
+    - bash <(curl -s https://codecov.io/bash)
 
 .lint:
   stage: lint
@@ -119,19 +120,17 @@ python-3.8-test:
   extends: ".test"
   image: python:3.8
 
-
 Deploy_to_PyPi:
   image: python:3.7
-  stage: Deploy_to_PyPi
+  stage: Deploy
   variables:
-    TWINE_USERNAME: $PRODUCTION_USERNAME
+    TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PRODUCTION_PASSWORD
   before_script:
     - pip install -U pip setuptools twine --quiet
   script:
-    - python setup.py sdist bdist_wheel
     - python -m twine check dist/*
-    - python -m twine upload --verbose --username $PRODUCTION_USER --password $PRODUCTION_PASSWORD dist/*
+    - python -m twine upload --verbose dist/*
   only:
     refs:
       - tags
