@@ -19,8 +19,6 @@
 (Paste any relevant logs - please use code blocks (```) to format console output,
 logs, and code as it's tough to read otherwise.)
 
-</details>
-
 ### Possible fixes
 
 (If you can, link to the line of code that might be responsible for the problem)

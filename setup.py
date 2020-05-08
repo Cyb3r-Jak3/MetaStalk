@@ -10,48 +10,36 @@ def read(fname) -> str:
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-def get_requirements(fname: str) -> list:
-    """get_requirements
-
-    Arguments:
-        fname {str} -- The name of the requirements file.
-
-    Returns:
-        list -- List of requirements
-    """
-    with open(f"{fname}.txt") as f:
-        return f.read().splitlines()
-
-
 setup(
     name="MetaStalk",
     version=__version__,
     author=__author__,
     author_email="jake@jwhite.network",
-    install_requires=get_requirements("requirements"),
-    extra_requires={
-        "dev": get_requirements("requirements-dev"),
-        "image": [
-            "psutil >= 5.7.0",
-            "requests >= 2.23.0"
-        ]
-    },
+    install_requires=[
+        "exifread >= 2.1.2",
+        "plotly >= 4.6.0",
+        "pandas >= 1.0.3",
+        "dash >= 1.11.0"],
     description="Metadata analyzer and visualizer",
     license="MPL 2.0",
     python_requires=">=3.6",
     packages=find_packages(exclude=["tests"]),
-    package_data={'MetaStalk': ['utils/assets/*']},
+    package_data={
+        'MetaStalk': ['utils/assets/*'],
+        },
     include_package_data=True,
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
     entry_points={
         "console_scripts": ["metastalk=MetaStalk.main:start"]
     },
+    keywords="exif image metadata photo plotly dash pyheif",
     url="https://gitlab.com/Cyb3r-Jak3/MetaStalk",
     project_urls={
         "Issues": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/issues",
         "Source": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/-/tree/master",
-        "CI": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/pipelines"
+        "CI": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/pipelines",
+        "Releases": "https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases"
     },
     classifiers=[
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",

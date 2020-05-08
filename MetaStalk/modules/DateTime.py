@@ -21,8 +21,13 @@ def date_time(photos: list) -> go.Figure():
     """
     log.info("Starting DateTime Charts")
     datetime, datetime_original, datetime_digitized = [], [], []
-    types = [datetime, datetime_original, datetime_digitized]
-    types_str = ["Creation date", "Date-time original", "Date-time digitized"]
+    types = [datetime,
+             datetime_original,
+             datetime_digitized]
+    types_str = ["Image DateTime",
+                 "EXIF DateTimeOriginal",
+                 "EXIF DateTimeDigitized",
+                 "GPS GPSDate"]
 
     simple_photos = []
     for i, _ in enumerate(photos):
@@ -31,7 +36,8 @@ def date_time(photos: list) -> go.Figure():
     for each in photos:
         for i, _ in enumerate(types):
             try:
-                types[i].append(each[types_str[i]])
+                date_type = str(each[types_str[i]]).replace(":", "/", 2)
+                types[i].append(date_type)
                 log.debug("%s has %s data", each["item"], types_str[i])
             except KeyError:
                 log.info("%s has no %s data ", each["item"], types_str[i])
@@ -40,12 +46,15 @@ def date_time(photos: list) -> go.Figure():
         data=[go.Table(
             header=dict(values=[
                 "Photo",
-                "Creation Date",
+                "Image DateTime",
                 "Date Time Original",
                 "Date Time Digitized"
             ]),
-            cells=dict(values=[simple_photos, datetime, datetime_original,
+            cells=dict(values=[simple_photos,
+                               datetime,
+                               datetime_original,
                                datetime_digitized]))]
     )
-    fig.update_layout(title="Timestamp Information", title_x=0.5)
+    fig.update_layout(title="Timestamp Information",
+                      title_x=0.5)
     return fig

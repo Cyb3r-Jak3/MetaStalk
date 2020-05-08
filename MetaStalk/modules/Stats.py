@@ -29,6 +29,8 @@ def stats(photos: list, invalid: list) -> go.Figure():
             header=dict(values=[
                 "Photos with Metadata",
                 "Photos without Metadata"]),
-            cells=dict(values=[simple_photos, invalid]))])
-    fig.update_layout(title="Photos With and Without Metadata.", title_x=0.5)
+            cells=dict(values=[simple_photos,
+                               invalid]))])
+    fig.update_layout(title="Photos With and Without Metadata.",
+                      title_x=0.5)
     return fig

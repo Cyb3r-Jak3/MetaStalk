@@ -2,6 +2,8 @@
 import logging
 import plotly.express as px
 
+import MetaStalk.utils as utils
+
 log = logging.getLogger("MetaStalk")
 
 
@@ -22,10 +24,11 @@ def gps_check(photos: list) -> px.scatter_mapbox:
     gps_photos = []
 
     for each in photos:
-        if "Longitude" in each.keys():
+        if "GPS GPSLatitudeRef" in each.keys():
             gps_photos.append(each["item"])
-            lats.append(float(each["Latitude"]))
-            longs.append(float(each["Longitude"]))
+            gps_data = utils.gps_parse(each)
+            lats.append(gps_data["latitude"])
+            longs.append(gps_data["longitude"])
             log.debug("%s has GPS data", each["item"])
         else:
             log.info("%s has no GPS data", each["item"])
@@ -34,8 +37,11 @@ def gps_check(photos: list) -> px.scatter_mapbox:
     for x, _ in enumerate(gps_photos):
         points.append((lats[x], longs[x]))
 
-    fig = px.scatter_mapbox(lon=longs, lat=lats, hover_name=gps_photos,
-                            title="Geo Locations",)
-    fig.update_layout(mapbox_style="open-street-map", title_x=0.5)
+    fig = px.scatter_mapbox(lon=longs,
+                            lat=lats,
+                            hover_name=gps_photos,
+                            title="Geo Locations")
+    fig.update_layout(mapbox_style="open-street-map",
+                      title_x=0.5)
 
     return fig

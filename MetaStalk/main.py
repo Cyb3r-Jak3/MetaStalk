@@ -7,13 +7,9 @@ from collections import OrderedDict
 import os
 import logging
 import timeit
-from hachoir.parser import createParser
-from hachoir.metadata import extractMetadata
-from hachoir.core import config as hachoirconfig
+import exifread
 import MetaStalk.utils as utils
 import MetaStalk.modules as modules
-
-hachoirconfig.quiet = True
 
 
 class MetaStalk():
@@ -27,6 +23,7 @@ class MetaStalk():
         self.t_start = timeit.default_timer()
         self.valid, self.invalid = [], []
         self.plots = {}
+        self.heic = utils.check_heic()
 
     def run(self, args):
         """Run
@@ -37,29 +34,42 @@ class MetaStalk():
             args {argparse.Namespace} -- The arguments from start()
             log {logging.Logger} -- Logger
         """
-        for path in args.files:
-            if os.path.isdir(path):
-                self.log.debug("Detected path as a directory")
-                for item in os.listdir(path):
-                    item_path = os.path.join(path, item)
-                    self.file_search(item_path)
-            else:
-                self.file_search(path)
+        self.parse_files(args.files)
 
         self.plots = {
             "Stats": modules.stats(self.valid, self.invalid),
             "GPS": modules.gps_check(self.valid),
             "Timestamp": modules.date_time(self.valid),
-            "Model": modules.pie_chart(self.valid, "Camera model"),
-            "Manufacturer": modules.pie_chart(self.valid, "Camera manufacturer"),
-            "Focal": modules.pie_chart(self.valid, "Camera focal"),
-            "Producer": modules.pie_chart(self.valid, "Producer")
+            "Model": modules.pie_chart(self.valid, "Image Model"),
+            "Manufacturer": modules.pie_chart(self.valid, "Image Make"),
+            "Focal": modules.pie_chart(self.valid, "EXIF FocalLength"),
+            "Producer": modules.pie_chart(self.valid, "Image Software")
         }
         if args.alphabetic:
             self.plots = OrderedDict(sorted(self.plots.items()))
         if args.export:
             utils.export(args.export, args.output, self.plots)
+
         utils.graph(self.plots, self.t_start, args.test, args.no_open)
+
+    def parse_files(self, path_list: list):
+        """parse_files
+        ---
+
+        Use to complete the direcotry parsing and file adding.
+
+        Arguments:
+            files {list} -- The list of paths to search for files
+        """
+        for path in path_list:
+            if os.path.isdir(path):
+                self.log.debug("Detected path as a directory")
+                for root, _, files in os.walk(path):
+                    for item in files:
+                        item_path = os.path.join(root, item)
+                        self.file_search(item_path)
+            else:
+                self.file_search(path)
 
     def file_search(self, parse_file: str):
         """file_search
@@ -67,22 +77,28 @@ class MetaStalk():
         Used to append files if the path is not a directory.
 
         Arguments
-            files {str} -- Name of the file to parse.
+            parse_files {str} -- Name of the file to parse.
         """
-        parser = createParser(parse_file)
-        try:
-            metadata = extractMetadata(parser).exportDictionary()["Metadata"]
-            metadata["item"] = parse_file
-            self.valid.append(metadata)
+        if parse_file.lower().endswith(("heic", "heif")) and self.heic:
+            tags = utils.parse_heic(parse_file)
+        else:
+            with open(parse_file, "rb") as f:
+                tags = exifread.process_file(f)
+                f.close()
+        if tags:
+            tags["item"] = parse_file
+            self.valid.append(tags)
             self.log.debug("%s has metadata", parse_file)
-        except AttributeError:
+        else:
             self.invalid.append(parse_file)
             self.log.debug("%s has no metadata data", parse_file)
 
 
 def start():
-    """
-    Function needed to start MetaStalk
+    """ start
+    ---
+
+    Function needed to start MetaStalk. Does all the argument parsing.
     """
     parser = argparse.ArgumentParser(prog="MetaStalk",
                                      description="Tool to graph "
@@ -94,7 +110,8 @@ def start():
     parser.add_argument('-d', '--debug', help="Sets logging level to DEBUG.",
                         action="store_const", dest="loglevel",
                         const=logging.DEBUG, default=logging.WARNING)
-    parser.add_argument("-e", "--export", choices=["pdf", "svg", "png", "html"],
+    parser.add_argument("-e", "--export", choices=["pdf", "svg", "webp", "jpeg", "png",
+                                                   "html", "html_offline"],
                         help="Exports the graphs rather than all on one webpage")
     parser.add_argument("--no-open", help="Will only start the server and not open the browser"
                         " to view it", default=False, action="store_true")
@@ -113,5 +130,5 @@ def start():
     if not args.files:
         log.error("ERROR: No path was inputted.")
         raise FileNotFoundError("No path was inputted.")
-    metastalk = MetaStalk()
-    metastalk.run(args)
+    metastalk = MetaStalk()  # pragma: no cover
+    metastalk.run(args)  # pragma: no cover
