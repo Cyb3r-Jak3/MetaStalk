@@ -27,14 +27,16 @@ def create_chart(table: list, pielabel: str) -> go.Figure():
 
     (labels, values) = ([], [])
     for key, value in freq.items():
-        if pielabel == "Camera focal":
+        if pielabel == "EXIF FocalLength":
             labels.append("Length: {}".format(key))
         else:
             labels.append(key)
         values.append(value)
 
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
-    fig.update_layout(title=f"{pielabel} Information", title_x=0.5)
+    fig = go.Figure(data=[go.Pie(labels=labels,
+                                 values=values)])
+    fig.update_layout(title=f"{pielabel} Information",
+                      title_x=0.5)
 
     return fig
 
@@ -57,7 +59,7 @@ def pie_chart(photos: list, pietype: str) -> go.Figure():
 
     for each in photos:
         try:
-            table.append(each[pietype])
+            table.append(str(each[pietype]))
             log.debug("%s has %s data", each["item"], pietype)
         except KeyError:
             log.info("%s has no %s data", each["item"], pietype)

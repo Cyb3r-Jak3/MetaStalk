@@ -11,6 +11,8 @@ include:
 
 
 dependency_scanning:
+  variables:
+    PIP_REQUIREMENTS_FILE: requirements/all.txt
   only:
     refs:
       - tags
@@ -23,6 +25,7 @@ license_scanning:
       - master
 
 Coverage:
+  allow_failure: True
   image: python:3.7
   stage: test
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
@@ -32,70 +35,78 @@ Coverage:
     - htmlcov/*
     - metastalk_exports/*
   before_script:
-    - pip install -U pip coverage -r requirements.txt --quiet
-    - curl https://deepsource.io/cli | sh
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
+    - curl --silent -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
+    - pip install -U pip coverage -r requirements/default.txt --quiet
   script:
     - pip install .
-    - coverage run  --source=./MetaStalk/ -m unittest -vv
+    - coverage run --source=./MetaStalk/ --append -m unittest -vv
+    - pip install .[heic]
+    - coverage run --source=./MetaStalk/ --append -m unittest -vv
   after_script:
     - coverage report
     - coverage html
     - coverage xml
     - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r coverage.xml
-    - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
     - ./cc-test-reporter after-build
     - bash <(curl -s https://codecov.io/bash)
+    - curl https://deepsource.io/cli | sh
+    - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
 
 .lint:
   stage: lint
   before_script:
-    - pip install -U pip -r requirements.txt -r requirements-dev.txt --quiet
-  script:
-    - pylint --rcfile=tox.ini ./MetaStalk
-    - flake8 ./MetaStalk --statistics --show-source
+    - pip install -U pip tox
 
 python-3.6-lint:
   extends: ".lint"
   image: python:3.6
+  script: tox -e py36
 
 python-3.7-lint:
   extends: ".lint"
   image: python:3.7
+  script: tox -e py37
 
 python-3.8-lint:
   extends: ".lint"
   image: python:3.8
+  script: tox -e py38
+
+# pypy3 can take over 25 minutes so it only runs on master and tags
+python-pypy-lint:
+  extends: ".lint"
+  image: pypy:3-buster
+  script: tox -e pypy3
+  only:
+    refs:
+      - tags
+      - master
 
 
 .build:
   stage: test
+  artifacts:
+    paths:
+    - dist/
+    - MetaStalk.egg-info/
   before_script:
     - pip install -U setuptools twine --quiet
   script:
-    - python setup.py sdist bdist_wheel
+    - python setup.py egg_info
+    - python setup.py sdist bdist_wheel bdist
     - python -m twine check dist/*
 
 python-3.6-build:
   extends: ".build"
   image: python:3.6
-  artifacts:
-    paths:
-    - dist/
 
 python-3.7-build:
   extends: ".build"
   image: python:3.7
-  artifacts:
-    paths:
-    - dist/
 
 python-3.8-build:
   extends: ".build"
   image: python:3.8
-  artifacts:
-    paths:
-    - dist/
 
 .test:
   stage: Test_Build
@@ -107,6 +118,11 @@ python-3.8-build:
     - command -v metastalk
     - metastalk ./ExamplePhotos/ -t -d
     - metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
+    - pip uninstall metastalk -y; pip install .[dev]
+    - pip uninstall metastalk -y; pip install .[image]
+    - pip uninstall metastalk -y; pip install .[heic]
+    - pip uninstall metastalk -y; pip install .[full]
+    - pip uninstall metastalk -y; pip install .[all]
 
 python-3.6-test:
   extends: ".test"
@@ -129,7 +145,6 @@ Deploy_to_PyPi:
   before_script:
     - pip install -U pip setuptools twine --quiet
   script:
-    - python -m twine check dist/*
     - python -m twine upload --verbose dist/*
   only:
     refs:

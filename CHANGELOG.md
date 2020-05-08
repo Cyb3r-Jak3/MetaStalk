@@ -2,7 +2,22 @@
 
 <!-- markdownlint-disable MD024 -->
 
-## [v2.1.0]- 2020-05-06
+## [v2.2.0](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.0) - 2020-05-08
+
+## Added
+
+- Sub-directory support.
+- HEIC and HEIF file support.
+- Added WebP, JPEG image export options.
+
+### Changed
+
+- Moved all requirements files to a [requirements directory](./requirements/).
+- Moved to exifread from hachoir to enable more options and heic support.
+- HTML exports uses cdn for scripts.
+- Removed some lines from coverage checks as they can no be processed.
+
+## [v2.1.0](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.1.0) - 2020-05-06
 
 ### Added
 
@@ -21,7 +36,7 @@
 - Created MetaStalk Class.
 - All titles for charts are centered.
 
-## [v2.0.0] - 2020-05-03
+## [v2.0.0](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.0.0) - 2020-05-03
 
 ## Rename to MetaStalk
 
@@ -50,7 +65,7 @@ Rename to MetaStalk to create PyPi package and a lot backend development changes
 - Dropped using pipenv for pipeline.
 - Markdownlint check in codeclimate.
 
-## [v1.4] - 2020-02-02
+## [v1.4](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v1.4) - 2020-02-02
 
 ### Changed
 

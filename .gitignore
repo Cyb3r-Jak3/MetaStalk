@@ -130,4 +130,5 @@ dmypy.json
 
 # Hide vscode folder
 .vscode/
-metastalk_exports/*
+metastalk_exports**/*
+
