@@ -16,7 +16,7 @@ setup(
     author=__author__,
     author_email="jake@jwhite.network",
     install_requires=[
-        "exifread >= 2.1.2",
+        "exifreader >= 0.1.1",
         "plotly >= 4.6.0",
         "pandas >= 1.0.3",
         "dash >= 1.11.0"],
@@ -39,7 +39,7 @@ setup(
         "Issues": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/issues",
         "Source": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/-/tree/master",
         "CI": "https://gitlab.com/Cyb3r-Jak3/MetaStalk/pipelines",
-        "Releases": "https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases"
+        "Releases": "https://github.com/Cyb3r-Jak3/MetaStalk/releases"
     },
     classifiers=[
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",

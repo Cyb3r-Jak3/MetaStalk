@@ -10,7 +10,7 @@
 
 ## About
 
-MetaStalk is a tool that can be used to generate graphs from the metadata of JPEG, TIFF, HEIC images, which are tested. More formats are supported but untested.
+MetaStalk is a tool that can be used to generate graphs from the metadata of JPEG, TIFF, and HEIC images, which are tested. More formats are supported but untested.
 It currently creates graphs for:
 
 - GPS coordinates (map)

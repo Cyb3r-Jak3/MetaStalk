@@ -2,6 +2,23 @@
 
 <!-- markdownlint-disable MD024 -->
 
+## [v2.2.1] - UNRELEASED
+
+## Added
+
+- ExifReader requirement.
+- .tiff photos for testing
+
+## Changed
+
+- Changed so exif files also use ExifReader without the need for pyheif.
+
+## Removed
+
+- Exifread and pyheif requirements.
+- Removed heic extra.
+- Pipfile and Pipfile.lock
+
 ## [v2.2.0](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.0) - 2020-05-08
 
 ## Added
