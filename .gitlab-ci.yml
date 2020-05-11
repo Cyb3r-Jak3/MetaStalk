@@ -36,11 +36,9 @@ Coverage:
     - metastalk_exports/*
   before_script:
     - curl --silent -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
-    - pip install -U pip coverage -r requirements/default.txt --quiet
+    - pip install -U pip coverage --quiet
   script:
     - pip install .
-    - coverage run --source=./MetaStalk/ --append -m unittest -vv
-    - pip install .[heic]
     - coverage run --source=./MetaStalk/ --append -m unittest -vv
   after_script:
     - coverage report
@@ -55,7 +53,7 @@ Coverage:
 .lint:
   stage: lint
   before_script:
-    - pip install -U pip tox
+    - pip install -U pip tox --quiet
 
 python-3.6-lint:
   extends: ".lint"
@@ -93,7 +91,7 @@ python-pypy-lint:
     - pip install -U setuptools twine --quiet
   script:
     - python setup.py egg_info
-    - python setup.py sdist bdist_wheel bdist
+    - python setup.py sdist bdist_wheel
     - python -m twine check dist/*
 
 python-3.6-build:
@@ -120,7 +118,6 @@ python-3.8-build:
     - metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
     - pip uninstall metastalk -y; pip install .[dev]
     - pip uninstall metastalk -y; pip install .[image]
-    - pip uninstall metastalk -y; pip install .[heic]
     - pip uninstall metastalk -y; pip install .[full]
     - pip uninstall metastalk -y; pip install .[all]
 

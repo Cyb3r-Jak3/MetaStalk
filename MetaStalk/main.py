@@ -7,7 +7,7 @@ from collections import OrderedDict
 import os
 import logging
 import timeit
-import exifread
+import exifreader
 import MetaStalk.utils as utils
 import MetaStalk.modules as modules
 
@@ -23,7 +23,6 @@ class MetaStalk():
         self.t_start = timeit.default_timer()
         self.valid, self.invalid = [], []
         self.plots = {}
-        self.heic = utils.check_heic()
 
     def run(self, args):
         """Run
@@ -79,12 +78,9 @@ class MetaStalk():
         Arguments
             parse_files {str} -- Name of the file to parse.
         """
-        if parse_file.lower().endswith(("heic", "heif")) and self.heic:
-            tags = utils.parse_heic(parse_file)
-        else:
-            with open(parse_file, "rb") as f:
-                tags = exifread.process_file(f)
-                f.close()
+        with open(parse_file, "rb") as f:
+            tags = exifreader.process_file(f)
+            f.close()
         if tags:
             tags["item"] = parse_file
             self.valid.append(tags)
