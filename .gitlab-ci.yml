@@ -14,8 +14,6 @@ license_scanning:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
-    - if: '$CI_COMMIT_TAG != null'
-      when: always
 
 
 .lint:
@@ -46,21 +44,6 @@ python-3.8-lint:
   cache:
     paths:
       - /builds/Cyb3r-Jak3/metastalk/.tox/py38
-
-
-# pypy3 can take over 25 minutes so it only runs on master and tags
-python-pypy-lint:
-  extends: ".lint"
-  image: pypy:3-buster
-  script: tox -e pypy3
-  cache:
-    paths:
-      - /builds/Cyb3r-Jak3/metastalk/.tox/pypy3/*
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      when: always
-    - if: '$CI_COMMIT_TAG != null'
-      when: always
   
 Coverage:
   image: registry.gitlab.com/cyb3r-jak3/orca-test-image/orca-test-image:latest
@@ -197,7 +180,6 @@ Deploy_to_PyPi:
     - python-3.7-build
     - python-3.8-build
     - Coverage
-    - python-pypy-lint
     - orca_test
   variables:
     TWINE_USERNAME: $PYPI_USER
@@ -209,5 +191,5 @@ Deploy_to_PyPi:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
-    - if: '$CI_COMMIT_TAG != null'
+    - if: '$CI_COMMIT_TAG =~ /^v\d+.\d+.\d+/'
       when: always
