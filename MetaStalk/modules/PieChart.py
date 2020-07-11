@@ -33,10 +33,8 @@ def create_chart(table: list, pielabel: str) -> go.Figure():
             labels.append(key)
         values.append(value)
 
-    fig = go.Figure(data=[go.Pie(labels=labels,
-                                 values=values)])
-    fig.update_layout(title=f"{pielabel} Information",
-                      title_x=0.5)
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+    fig.update_layout(title=f"{pielabel} Information", title_x=0.5)
 
     return fig
 

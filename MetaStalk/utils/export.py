@@ -7,13 +7,14 @@ import logging
 import os
 
 
-class export():
+class export:
     """export
     ---
 
     Deals with the export to html and images. Probably not the best way to run everything but it
     works the best.
     """
+
     def __init__(self, choice: str, output_dir: str, plots: dict):
         self.log = logging.getLogger("MetaStalk")
         self.choice = choice
@@ -25,14 +26,11 @@ class export():
         elif choice in ["pdf", "svg", "webp", "jpeg", "png"]:
             self.image_export()
 
-    def directory_management(self):
+    def directory_management(self) -> None:
         """directory_management
         ---
         Creates directory for output if it does not exist and if it does then it will check if there
         are already file in it.
-
-        Arguments:
-            output_dir {str} -- Name of the directory to check/create.
         """
         if not os.path.isdir(self.output_dir):
             os.makedirs(self.output_dir)
@@ -40,7 +38,7 @@ class export():
             if len(os.listdir(self.output_dir)) != 0:
                 self.log.warning("The chosen output directory contain files.")
 
-    def image_export(self):
+    def image_export(self) -> None:
         """image_export
         ---
 
@@ -56,7 +54,7 @@ class export():
                 self.log.error("Missing packages from metastalk[image]")
                 raise EnvironmentError("Missing packages from metastalk[image]")
 
-    def html_export(self):
+    def html_export(self) -> None:
         """html_export
         ---
         Deals with export of html.
@@ -69,6 +67,6 @@ class export():
         else:
             offline = "cdn"
         for name, chart in self.plots.items():
-            chart.write_html(f"{self.output_dir}/{name}.html",
-                             include_plotlyjs=offline,
-                             )
+            chart.write_html(
+                f"{self.output_dir}/{name}.html", include_plotlyjs=offline,
+            )

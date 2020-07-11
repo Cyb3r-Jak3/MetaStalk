@@ -3,7 +3,7 @@
 Parse needed to make exifread dictionaries easier"""
 
 
-def gps_parse(tags: dict):
+def gps_parse(tags: dict) -> dict:
     """Returns GPS degrees"""
     latitude = tags["GPS GPSLatitude"]
     latitude_ref = tags["GPS GPSLatitudeRef"]
@@ -11,13 +11,13 @@ def gps_parse(tags: dict):
     longitude_ref = tags["GPS GPSLongitudeRef"]
     if latitude:
         lat_value = _convert_to_degrees(latitude)
-        if latitude_ref.values != 'N':
+        if latitude_ref.values != "N":
             lat_value = -lat_value
     if longitude:
         lon_value = _convert_to_degrees(longitude)
-        if longitude_ref.values != 'E':
+        if longitude_ref.values != "E":
             lon_value = -lon_value
-    return {'latitude': lat_value, 'longitude': lon_value}
+    return {"latitude": lat_value, "longitude": lon_value}
 
 
 def _convert_to_degrees(value) -> float:

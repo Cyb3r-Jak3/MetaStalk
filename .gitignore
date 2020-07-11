@@ -130,5 +130,9 @@ dmypy.json
 
 # Hide vscode folder
 .vscode/
+# Hide PyCharm Folder
+.idea/
+# Don't need to show exports
 metastalk_exports**/*
+
 

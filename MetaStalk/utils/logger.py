@@ -20,9 +20,9 @@ def make_logger(name: str, log_level: int) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(log_level)
     formatter = logging.Formatter(
-        '%(levelname)s - %(name)s - %(asctime)s - %(message)s',
-        '%Y-%m-%d %H:%M:%S')
-    fh = logging.FileHandler("{}.log".format(name), mode='w')
+        "%(levelname)s - %(name)s - %(asctime)s - %(message)s", "%Y-%m-%d %H:%M:%S"
+    )
+    fh = logging.FileHandler("{}.log".format(name), mode="w")
     fh.setFormatter(formatter)
     logger.addHandler(fh)
     ch = logging.StreamHandler()

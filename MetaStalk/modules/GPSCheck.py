@@ -37,11 +37,9 @@ def gps_check(photos: list) -> px.scatter_mapbox:
     for x, _ in enumerate(gps_photos):
         points.append((lats[x], longs[x]))
 
-    fig = px.scatter_mapbox(lon=longs,
-                            lat=lats,
-                            hover_name=gps_photos,
-                            title="Geo Locations")
-    fig.update_layout(mapbox_style="open-street-map",
-                      title_x=0.5)
+    fig = px.scatter_mapbox(
+        lon=longs, lat=lats, hover_name=gps_photos, title="Geo Locations"
+    )
+    fig.update_layout(mapbox_style="open-street-map", title_x=0.5)
 
     return fig

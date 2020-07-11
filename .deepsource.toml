@@ -6,6 +6,9 @@ test_patterns = [
 exclude_patterns = [
   "tests/*"
 ]
+[[transformers]]
+name = "black"
+enabled = true
 
 [[analyzers]]
 name = "python"
