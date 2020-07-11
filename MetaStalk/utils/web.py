@@ -33,12 +33,16 @@ def graph(plots: dict, t_start: float, test: bool, no_open: bool):
     app.layout = html.Div(
         [
             html.H1("MetaStalk", style={"textAlign": "center"}),
-            html.H6(html.A("Cyber Jake", href="https://twitter.com/Cyb3r_Jak3"),
-                    style={"textAlign": "center"}),
+            html.H6(
+                html.A("Cyber Jake", href="https://twitter.com/Cyb3r_Jak3"),
+                style={"textAlign": "center"},
+            ),
             html.Div(children=graphs),
-            html.Footer("Time Taken = {0:.2f} seconds".format(t_stop - t_start),
-                        style={"textAlign": "right"}),
-            html.Footer(f"Run Time: {datetime.now().strftime('%m/%d/%Y, %H:%M:%S')}")
+            html.Footer(
+                "Time Taken = {0:.2f} seconds".format(t_stop - t_start),
+                style={"textAlign": "right"},
+            ),
+            html.Footer(f"Run Time: {datetime.now().strftime('%m/%d/%Y, %H:%M:%S')}"),
         ]
     )
     if not test:

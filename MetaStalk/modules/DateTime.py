@@ -21,13 +21,13 @@ def date_time(photos: list) -> go.Figure():
     """
     log.info("Starting DateTime Charts")
     datetime, datetime_original, datetime_digitized = [], [], []
-    types = [datetime,
-             datetime_original,
-             datetime_digitized]
-    types_str = ["Image DateTime",
-                 "EXIF DateTimeOriginal",
-                 "EXIF DateTimeDigitized",
-                 "GPS GPSDate"]
+    types = [datetime, datetime_original, datetime_digitized]
+    types_str = [
+        "Image DateTime",
+        "EXIF DateTimeOriginal",
+        "EXIF DateTimeDigitized",
+        "GPS GPSDate",
+    ]
 
     simple_photos = []
     for i, _ in enumerate(photos):
@@ -43,18 +43,26 @@ def date_time(photos: list) -> go.Figure():
                 log.info("%s has no %s data ", each["item"], types_str[i])
 
     fig = go.Figure(
-        data=[go.Table(
-            header=dict(values=[
-                "Photo",
-                "Image DateTime",
-                "Date Time Original",
-                "Date Time Digitized"
-            ]),
-            cells=dict(values=[simple_photos,
-                               datetime,
-                               datetime_original,
-                               datetime_digitized]))]
+        data=[
+            go.Table(
+                header=dict(
+                    values=[
+                        "Photo",
+                        "Image DateTime",
+                        "Date Time Original",
+                        "Date Time Digitized",
+                    ]
+                ),
+                cells=dict(
+                    values=[
+                        simple_photos,
+                        datetime,
+                        datetime_original,
+                        datetime_digitized,
+                    ]
+                ),
+            )
+        ]
     )
-    fig.update_layout(title="Timestamp Information",
-                      title_x=0.5)
+    fig.update_layout(title="Timestamp Information", title_x=0.5)
     return fig

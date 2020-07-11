@@ -8,33 +8,79 @@ include:
   - template: SAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
-
-
-dependency_scanning:
-  variables:
-    PIP_REQUIREMENTS_FILE: requirements/all.txt
-  only:
-    refs:
-      - tags
-      - master
+  - template: Secret-Detection.gitlab-ci.yml
 
 license_scanning:
-  only:
-    refs:
-      - tags
-      - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: always
+    - if: '$CI_COMMIT_TAG != null'
+      when: always
 
-Coverage:
-  allow_failure: True
+
+.lint:
+  stage: lint
+  before_script:
+    - pip install -U pip tox --quiet
+
+python-3.6-lint:
+  extends: ".lint"
+  image: python:3.6
+  script: tox -e py36
+  cache:
+    paths:
+      - /builds/Cyb3r-Jak3/metastalk/.tox/py36
+
+python-3.7-lint:
+  extends: ".lint"
   image: python:3.7
+  script: tox -e py37
+  cache:
+    paths:
+      - /builds/Cyb3r-Jak3/metastalk/.tox/py37
+
+python-3.8-lint:
+  extends: ".lint"
+  image: python:3.8
+  script: tox -e py38
+  cache:
+    paths:
+      - /builds/Cyb3r-Jak3/metastalk/.tox/py38
+
+
+# pypy3 can take over 25 minutes so it only runs on master and tags
+python-pypy-lint:
+  extends: ".lint"
+  image: pypy:3-buster
+  script: tox -e pypy3
+  cache:
+    paths:
+      - /builds/Cyb3r-Jak3/metastalk/.tox/pypy3/*
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: always
+    - if: '$CI_COMMIT_TAG != null'
+      when: always
+  
+Coverage:
+  image: registry.gitlab.com/cyb3r-jak3/orca-test-image/orca-test-image:latest
+  allow_failure: true  # Needed as the deepsource sometimes fails
   stage: test
+  needs:
+    - python-3.6-lint
+    - python-3.7-lint
+    - python-3.8-lint
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
+  cache:
+    paths:
+      - /builds/Cyb3r-Jak3/metastalk/.tox/coverage/*
   artifacts:
     paths:
     - MetaStalk.log
     - htmlcov/*
     - metastalk_exports/*
   before_script:
+    - curl https://deepsource.io/cli | sh
     - curl --silent -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
     - pip install -U pip coverage --quiet
   script:
@@ -47,40 +93,29 @@ Coverage:
     - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r coverage.xml
     - ./cc-test-reporter after-build
     - bash <(curl -s https://codecov.io/bash)
-    - curl https://deepsource.io/cli | sh
     - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
 
-.lint:
-  stage: lint
+orca_test:
+  stage: test
+  image: registry.gitlab.com/cyb3r-jak3/orca-test-image/orca-test-image:latest
+  needs:
+    - python-3.6-lint
+    - python-3.7-lint
+    - python-3.8-lint
+  artifacts:
+    paths:
+    - metastalk_exports/**
   before_script:
-    - pip install -U pip tox --quiet
-
-python-3.6-lint:
-  extends: ".lint"
-  image: python:3.6
-  script: tox -e py36
-
-python-3.7-lint:
-  extends: ".lint"
-  image: python:3.7
-  script: tox -e py37
-
-python-3.8-lint:
-  extends: ".lint"
-  image: python:3.8
-  script: tox -e py38
-
-# pypy3 can take over 25 minutes so it only runs on master and tags
-python-pypy-lint:
-  extends: ".lint"
-  image: pypy:3-buster
-  script: tox -e pypy3
-  only:
-    refs:
-      - tags
-      - master
-
-
+    - pip install . --quiet
+  script:
+    - metastalk ./ExamplePhotos --export pdf -t
+    - metastalk ./ExamplePhotos --export svg -t
+    - metastalk ./ExamplePhotos --export webp -t
+    - metastalk ./ExamplePhotos --export jpeg -t
+    - metastalk ./ExamplePhotos --export png -t
+    - metastalk ./ExamplePhotos --export html -t
+    - metastalk ./ExamplePhotos --export html_offline -t
+  
 .build:
   stage: test
   artifacts:
@@ -95,14 +130,20 @@ python-pypy-lint:
     - python -m twine check dist/*
 
 python-3.6-build:
+  needs:
+    - python-3.6-lint
   extends: ".build"
   image: python:3.6
 
 python-3.7-build:
+  needs:
+    - python-3.7-lint
   extends: ".build"
   image: python:3.7
 
 python-3.8-build:
+  needs:
+    - python-3.8-lint
   extends: ".build"
   image: python:3.8
 
@@ -116,26 +157,48 @@ python-3.8-build:
     - command -v metastalk
     - metastalk ./ExamplePhotos/ -t -d
     - metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
-    - pip uninstall metastalk -y; pip install .[dev]
-    - pip uninstall metastalk -y; pip install .[image]
-    - pip uninstall metastalk -y; pip install .[full]
-    - pip uninstall metastalk -y; pip install .[all]
-
+    - pip uninstall metastalk -y; pip install .[dev] --quiet
+    - pip uninstall metastalk -y; pip install .[image] --quiet
+    - pip uninstall metastalk -y; pip install .[all] --quiet
+  
 python-3.6-test:
+  needs:
+    - python-3.6-build
+    - Coverage
+    - orca_test
   extends: ".test"
   image: python:3.6
 
 python-3.7-test:
+  needs:
+    - python-3.7-build
+    - Coverage
+    - orca_test
   extends: ".test"
   image: python:3.7
 
 python-3.8-test:
+  needs:
+    - python-3.8-build
+    - Coverage
+    - orca_test
   extends: ".test"
   image: python:3.8
+
 
 Deploy_to_PyPi:
   image: python:3.7
   stage: Deploy
+  needs:
+    - python-3.6-lint
+    - python-3.7-lint
+    - python-3.8-lint
+    - python-3.6-build
+    - python-3.7-build
+    - python-3.8-build
+    - Coverage
+    - python-pypy-lint
+    - orca_test
   variables:
     TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PRODUCTION_PASSWORD
@@ -143,10 +206,8 @@ Deploy_to_PyPi:
     - pip install -U pip setuptools twine --quiet
   script:
     - python -m twine upload --verbose dist/*
-  only:
-    refs:
-      - tags
-      - master
-    variables:
-      - $CI_COMMIT_TAG
-  
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: always
+    - if: '$CI_COMMIT_TAG != null'
+      when: always

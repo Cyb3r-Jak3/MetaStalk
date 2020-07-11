@@ -20,7 +20,7 @@ pip install .[dev]
 
 ## Testing
 
-Currently the tests at [tests](tests/) cover all the necessary items to make sure the it works. Currently no test exist for testing the image export capabilities as it relies on [orca](https://github.com/plotly/orca) which is not easy to setup tests for. If someone has a way of creating a test with orca, then please submit a pull request and I will gladly approve.
+Currently the tests at [tests](tests/) cover all the necessary items to make sure the it works. If you add a new feature then please write a test for it as well. Testing that involves [orca](https://github.com/plotly/orca) is done during the CI process using a custom [docker image](https://gitlab.com/Cyb3r-Jak3/orca-test-image) that I wrote. If you run locally without orca installed then you can expect the tests `test_orca_export` and `test_export_only` to fail.
 
 To run the tests:
 

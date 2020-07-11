@@ -2,18 +2,34 @@
 
 <!-- markdownlint-disable MD024 -->
 
-## [v2.2.1] - UNRELEASED
+## [v2.2.2](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.2) - 2020-07-11
 
-## Added
+### Added
+
+- Version checking with log warning for update.
+- Python [black](https://github.com/psf/black) for code style.
+- Export only option.
+- GitLab Secret Scanning.
+- Orca testing.
+
+### Changed
+
+- Changed function name `file_search` to `exif_check`.
+- Update docstring.
+- Switched to required versions rather than a minimum version and updated versions.
+
+## [v2.2.1](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.1) - 2020-05-11
+
+### Added
 
 - ExifReader requirement.
 - .tiff photos for testing
 
-## Changed
+### Changed
 
 - Changed so exif files also use ExifReader without the need for pyheif.
 
-## Removed
+### Removed
 
 - Exifread and pyheif requirements.
 - Removed heic extra.
@@ -21,7 +37,7 @@
 
 ## [v2.2.0](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.0) - 2020-05-08
 
-## Added
+### Added
 
 - Sub-directory support.
 - HEIC and HEIF file support.

@@ -19,18 +19,19 @@ def stats(photos: list, invalid: list) -> go.Figure():
         go.Figure() -- A plotly table
     """
     log.info("Staring Stats")
-    log.debug("There are %s photos with metadata and %s without",
-              len(photos), len(invalid))
+    log.debug(
+        "There are %s photos with metadata and %s without", len(photos), len(invalid)
+    )
     simple_photos = []
     for i, _ in enumerate(photos):
         simple_photos.append(photos[i]["item"])
     fig = go.Figure(
-        data=[go.Table(
-            header=dict(values=[
-                "Photos with Metadata",
-                "Photos without Metadata"]),
-            cells=dict(values=[simple_photos,
-                               invalid]))])
-    fig.update_layout(title="Photos With and Without Metadata.",
-                      title_x=0.5)
+        data=[
+            go.Table(
+                header=dict(values=["Photos with Metadata", "Photos without Metadata"]),
+                cells=dict(values=[simple_photos, invalid]),
+            )
+        ]
+    )
+    fig.update_layout(title="Photos With and Without Metadata.", title_x=0.5)
     return fig

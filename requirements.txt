@@ -1,0 +1,12 @@
+exifreader == 0.1.1
+plotly == 4.8.2
+pandas == 1.0.5
+dash == 1.13.4
+requests == 2.24.0
+bandit == 1.6.2
+pylint == 2.5.3
+flake8 == 3.8.3
+coverage == 5.2
+tox == 3.16.1
+psutil == 5.7.0
+black == 19.10b0
