@@ -172,6 +172,7 @@ python-3.8-test:
 Deploy_to_PyPi:
   image: python:3.7
   stage: Deploy
+  allow_failure: true  # Needed for testing
   needs:
     - python-3.6-lint
     - python-3.7-lint
@@ -179,17 +180,21 @@ Deploy_to_PyPi:
     - python-3.6-build
     - python-3.7-build
     - python-3.8-build
+    - python-3.6-test
+    - python-3.7-test
+    - python-3.8-test
     - Coverage
     - orca_test
   variables:
     TWINE_USERNAME: $PYPI_USER
     TWINE_PASSWORD: $PRODUCTION_PASSWORD
   before_script:
+    - echo $CI_COMMIT_TAG $CI_COMMIT_BRANCH
     - pip install -U pip setuptools twine --quiet
   script:
     - python -m twine upload --verbose dist/*
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      when: always
     - if: '$CI_COMMIT_TAG =~ /^v\d+.\d+.\d+/'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
