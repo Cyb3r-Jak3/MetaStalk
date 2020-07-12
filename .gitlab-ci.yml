@@ -174,9 +174,6 @@ Deploy_to_PyPi:
   stage: Deploy
   allow_failure: true  # Needed for testing
   needs:
-    - python-3.6-lint
-    - python-3.7-lint
-    - python-3.8-lint
     - python-3.6-build
     - python-3.7-build
     - python-3.8-build
