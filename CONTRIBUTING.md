@@ -8,6 +8,8 @@ Please open issues on [GitLab](https://gitlab.com/Cyb3r-Jak3/MetaStalk/issues). 
 
 ## Getting starting
 
+I recommend checking out the project at [SourceGraph](https://sourcegraph.com/gitlab.com/Cyb3r-Jak3/metastalk) to get a good overview of the code.
+
 To get started clone the repo and install with development tools needed.
 
 ```bash
@@ -20,7 +22,7 @@ pip install .[dev]
 
 ## Testing
 
-Currently the tests at [tests](tests/) cover all the necessary items to make sure the it works. If you add a new feature then please write a test for it as well. Testing that involves [orca](https://github.com/plotly/orca) is done during the CI process using a custom [docker image](https://gitlab.com/Cyb3r-Jak3/orca-test-image) that I wrote. If you run locally without orca installed then you can expect the tests `test_orca_export` and `test_export_only` to fail.
+Currently the tests at [tests](tests/) cover all the necessary items to make sure the it works. If you add a new feature then please write a test for it as well. Testing that involves [orca](https://github.com/plotly/orca) is done during the CI process using a custom [docker image](https://gitlab.com/Cyb3r-Jak3/orca-test-image) that I wrote. Tests that need orca are skipped locally if orca is not found.
 
 To run the tests:
 
@@ -36,7 +38,7 @@ additionally before pushing, run:
 tox -e [py36,py37,py38]
 ```
 
-This will check the files with bandit, pylint and flake8.
+This will check the files with black, bandit, pylint and flake8.
 
 ## Modules
 

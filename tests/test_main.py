@@ -3,8 +3,18 @@
 import unittest
 from argparse import Namespace
 import os
+from distutils.spawn import find_executable
 
 from MetaStalk import main
+
+
+def check_orca() -> bool:
+    """checks to see if orca is available
+
+    Returns:
+        bool: If orca executable is found
+    """
+    return find_executable("orca") is not None
 
 
 class MetaStalkTests(unittest.TestCase):
@@ -91,6 +101,7 @@ class MetaStalkTests(unittest.TestCase):
                 test_passed = False
         self.assertTrue(test_passed)
 
+    @unittest.skipUnless(check_orca(), "Test not needed if orca executable is missing")
     def test_orca_export(self):
         """Test for export fail."""
         test_passed = True
@@ -111,6 +122,7 @@ class MetaStalkTests(unittest.TestCase):
                 test_passed = False
         self.assertTrue(test_passed)
 
+    @unittest.skipUnless(check_orca(), "Test not needed if orca executable is missing")
     def test_export_only(self):
         """Test to show that only export option works"""
         arguments = Namespace(

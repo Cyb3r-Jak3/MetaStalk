@@ -67,7 +67,7 @@ Coverage:
     - curl --silent -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
     - pip install -U pip coverage --quiet
   script:
-    - pip install .
+    - pip install . --quiet
     - coverage run --source=./MetaStalk/ --append -m unittest -vv
   after_script:
     - coverage report
