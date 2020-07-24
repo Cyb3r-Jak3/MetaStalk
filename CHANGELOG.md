@@ -2,6 +2,16 @@
 
 <!-- markdownlint-disable MD024 -->
 
+## UNRELEASED
+
+### Changed
+
+- Upgrade tox, psutil, and plotly versions.
+
+### Removed
+
+- git-legal plugin in [.codeclimate.yml](.codeclimate.yml)
+
 ## [v2.2.2](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.2) - 2020-07-11
 
 ### Added

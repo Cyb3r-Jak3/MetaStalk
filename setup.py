@@ -17,7 +17,7 @@ setup(
     author_email="jake@jwhite.network",
     install_requires=[
         "exifreader == 0.1.1",
-        "plotly == 4.8.2",
+        "plotly == 4.9.0",
         "pandas == 1.0.5",
         "dash == 1.13.4",
         "requests == 2.24.0",

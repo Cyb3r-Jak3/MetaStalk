@@ -4,8 +4,6 @@ checks:
       config:
         threshold: 10
 plugins:
-  git-legal:
-    enabled: true
   sonar-python:
     enabled: true
     checks:
