@@ -15,36 +15,41 @@ license_scanning:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
 
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 .lint:
   stage: lint
   before_script:
-    - pip install -U pip tox --quiet
+    - pip install -U pip
+    - pip install --cache-dir=~/.cache/pip/ -r requirements-dev.txt
+  script:
+    - black --check ./MetaStalk/
+    - pylint --rcfile=tox.ini ./MetaStalk/
+    - flake8 ./MetaStalk/
+    - bandit -r ./MetaStalk/
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ~/.cache/pip/
 
 python-3.6-lint:
   extends: ".lint"
   image: python:3.6
-  script: tox -e py36
-  cache:
-    paths:
-      - /builds/Cyb3r-Jak3/metastalk/.tox/py36
 
 python-3.7-lint:
   extends: ".lint"
   image: python:3.7
-  script: tox -e py37
-  cache:
-    paths:
-      - /builds/Cyb3r-Jak3/metastalk/.tox/py37
 
 python-3.8-lint:
   extends: ".lint"
   image: python:3.8
-  script: tox -e py38
-  cache:
-    paths:
-      - /builds/Cyb3r-Jak3/metastalk/.tox/py38
-  
+
+python-3.9-lint:
+  extends: ".lint"
+  image: python:3.9
+
+
 Coverage:
   image: registry.gitlab.com/cyb3r-jak3/orca-test-image/orca-test-image:latest
   allow_failure: true  # Needed as the deepsource sometimes fails
@@ -53,10 +58,8 @@ Coverage:
     - python-3.6-lint
     - python-3.7-lint
     - python-3.8-lint
+    - python-3.9-lint
   coverage: '/TOTAL\s*\d*\s*\d*\s*(\d*)%/'
-  cache:
-    paths:
-      - /builds/Cyb3r-Jak3/metastalk/.tox/coverage/*
   artifacts:
     paths:
     - MetaStalk.log
@@ -85,6 +88,7 @@ orca_test:
     - python-3.6-lint
     - python-3.7-lint
     - python-3.8-lint
+    - python-3.9-lint
   artifacts:
     paths:
     - metastalk_exports/**
@@ -130,6 +134,13 @@ python-3.8-build:
   extends: ".build"
   image: python:3.8
 
+python-3.9-build:
+  needs:
+    - python-3.9-lint
+  extends: ".build"
+  image: python:3.9
+
+
 .test:
   stage: Test_Build
   before_script:
@@ -140,7 +151,6 @@ python-3.8-build:
     - command -v metastalk
     - metastalk ./ExamplePhotos/ -t -d
     - metastalk ./ExamplePhotos/Panasonic_DMC-FZ30.jpg ./ExamplePhotos/DSCN0010.jpg -t -d
-    - pip uninstall metastalk -y; pip install .[dev] --quiet
     - pip uninstall metastalk -y; pip install .[image] --quiet
     - pip uninstall metastalk -y; pip install .[all] --quiet
   
@@ -168,17 +178,27 @@ python-3.8-test:
   extends: ".test"
   image: python:3.8
 
+python-3.9-test:
+  needs:
+    - python-3.9-build
+    - Coverage
+    - orca_test
+  extends: ".test"
+  image: python:3.9
+
 
 Deploy_to_PyPi:
-  image: python:3.7
+  image: python:3.8
   stage: Deploy
   needs:
     - python-3.6-build
     - python-3.7-build
     - python-3.8-build
+    - python-3.9-build
     - python-3.6-test
     - python-3.7-test
     - python-3.8-test
+    - python-3.9-test
     - Coverage
     - orca_test
   variables:

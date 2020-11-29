@@ -1,4 +1,4 @@
-"""Uses dash to create a webpage that contain all the graphs"""
+"""Uses dash to create a webpage that contain all the graphs/"""
 import timeit
 import logging
 import webbrowser
@@ -12,7 +12,7 @@ log = logging.getLogger("MetaStalk")
 
 
 def graph(plots: dict, t_start: float, test: bool, no_open: bool):
-    """graph
+    """Graph
 
     Displays all the plots that are passed to it.
 

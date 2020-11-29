@@ -6,7 +6,8 @@ from MetaStalk import __version__, __author__
 
 def read(fname) -> str:
     """Reads the fname file.
-    Used to read the README.MD file"""
+    Used to read the README.MD file
+    """
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
@@ -16,11 +17,11 @@ setup(
     author=__author__,
     author_email="jake@jwhite.network",
     install_requires=[
-        "exifreader == 0.1.1",
-        "plotly == 4.9.0",
-        "pandas == 1.0.5",
-        "dash == 1.13.4",
-        "requests == 2.24.0",
+        "exifreader >= 0.1.1",
+        "plotly >= 4.13.0",
+        "pandas >= 1.1.4",
+        "dash >= 1.17.0",
+        "requests == 2.25.0",
     ],
     description="Metadata analyzer and visualizer",
     license="MPL 2.0",
@@ -47,6 +48,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Topic :: Scientific/Engineering :: Information Analysis",

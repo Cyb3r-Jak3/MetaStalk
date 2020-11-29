@@ -6,7 +6,7 @@ log = logging.getLogger("MetaStalk")
 
 
 def create_chart(table: list, pielabel: str) -> go.Figure():
-    """Create_chart
+    """Create_chart.
 
     Creates the pie chart by frequency of items in a dictionary.
 
@@ -40,7 +40,7 @@ def create_chart(table: list, pielabel: str) -> go.Figure():
 
 
 def pie_chart(photos: list, pietype: str) -> go.Figure():
-    """PieChart
+    """Pie Chart.
 
     Parses information and returns a pie chart
 

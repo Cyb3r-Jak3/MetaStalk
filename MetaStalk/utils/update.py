@@ -1,4 +1,4 @@
-"""Script to check for available MetaStalk updates"""
+"""Script to check for available MetaStalk updates."""
 
 from distutils.version import LooseVersion
 import requests

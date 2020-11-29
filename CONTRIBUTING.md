@@ -4,7 +4,7 @@ Thanks for reading this because I am always looking to collaborate with other pe
 
 If you are looking to submit a pull request then please do so on [GitLab](https://gitlab.com/Cyb3r-Jak3/MetaStalk) because all development is done there. Any pull request that is opened on GitHub will be closed and I mirror it on GitLab.  
 
-Please open issues on [GitLab](https://gitlab.com/Cyb3r-Jak3/MetaStalk/issues). If you do not have a GitLab account, send then please email service desk( [incoming+cyb3r-jak3-metastalk-15263483-issue-@incoming.gitlab.com](mailto:incoming+cyb3r-jak3-metastalk-15263483-issue-@incoming.gitlab.com)).
+Please open issues on [GitLab](https://gitlab.com/Cyb3r-Jak3/MetaStalk/issues). If you do not have a GitLab account, send then please email [service desk](mailto:incoming+cyb3r-jak3-metastalk-15263483-issue-@incoming.gitlab.com).
 
 ## Getting starting
 
@@ -17,7 +17,8 @@ git clone https://gitlab.com/Cyb3r-Jak3/metastalk.git
 
 cd metastalk
 # Recommended to use a virtualenv
-pip install .[dev]
+pip install -r requirements-dev.txt
+pip install -e .
 ```
 
 ## Testing

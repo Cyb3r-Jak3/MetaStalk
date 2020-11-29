@@ -1,4 +1,4 @@
-"""utils.export
+"""utils.export.
 ---
 
 Exports the plots as interactive html
@@ -8,7 +8,7 @@ import os
 
 
 class export:
-    """export
+    """export.
     ---
 
     Deals with the export to html and images. Probably not the best way to run everything but it
@@ -27,7 +27,7 @@ class export:
             self.image_export()
 
     def directory_management(self) -> None:
-        """directory_management
+        """directory_management.
         ---
         Creates directory for output if it does not exist and if it does then it will check if there
         are already file in it.
@@ -39,7 +39,7 @@ class export:
                 self.log.warning("The chosen output directory contain files.")
 
     def image_export(self) -> None:
-        """image_export
+        """image_export.
         ---
 
         Deals with export images
@@ -50,9 +50,11 @@ class export:
         for name, chart in self.plots.items():
             try:
                 chart.write_image(f"{self.output_dir}/{name}.{self.choice}")
-            except ValueError:
+            except ValueError as err:
                 self.log.error("Missing packages from metastalk[image]")
-                raise EnvironmentError("Missing packages from metastalk[image]")
+                raise EnvironmentError(
+                    "Missing packages from metastalk[image]"
+                ) from err
 
     def html_export(self) -> None:
         """html_export
@@ -68,5 +70,6 @@ class export:
             offline = "cdn"
         for name, chart in self.plots.items():
             chart.write_html(
-                f"{self.output_dir}/{name}.html", include_plotlyjs=offline,
+                f"{self.output_dir}/{name}.html",
+                include_plotlyjs=offline,
             )

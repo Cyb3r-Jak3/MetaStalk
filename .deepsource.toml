@@ -1,14 +1,8 @@
 version = 1
 
-test_patterns = [
-  "MetaStalk/**",
-]
 exclude_patterns = [
   "tests/*"
 ]
-[[transformers]]
-name = "black"
-enabled = true
 
 [[analyzers]]
 name = "python"
