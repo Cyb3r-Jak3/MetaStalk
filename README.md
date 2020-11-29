@@ -25,6 +25,7 @@ Metastalk is supported and tested on the following Python versions:
 - 3.6
 - 3.7
 - 3.8
+- 3.9
 
 ## How to use
 
@@ -89,4 +90,5 @@ metastalk <Path to files>
 
 This is for educational/proof of concept purposes only. What you do with MetaStalk is **your** responsibility.
 
-[![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gl/Cyb3r-Jak3/MetaStalk/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gl/Cyb3r-Jak3/metastalk.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gl/Cyb3r-Jak3/metastalk/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gl/Cyb3r-Jak3/metastalk.svg/?label=resolved+issues&show_trend=true)](https://deepsource.io/gl/Cyb3r-Jak3/metastalk/?ref=repository-badge)

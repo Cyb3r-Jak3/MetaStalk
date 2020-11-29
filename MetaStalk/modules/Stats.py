@@ -1,5 +1,6 @@
 """Creates a table figure that shows
- photos that did and did not have exif"""
+ photos that did and did not have exif.
+ """
 import logging
 import plotly.graph_objects as go
 

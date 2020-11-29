@@ -6,7 +6,7 @@ log = logging.getLogger("MetaStalk")
 
 
 def date_time(photos: list) -> go.Figure():
-    """date_time
+    """date_time.
 
     Makes a table with timestamp of photos.
     There are three name that DateTime data can be under `Creation date`,

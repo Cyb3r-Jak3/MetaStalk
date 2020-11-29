@@ -2,15 +2,23 @@
 
 <!-- markdownlint-disable MD024 -->
 
-## UNRELEASED
+## [v2.2.3](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.3) - 2020-11-28
+
+### Added
+
+- Python 3.9 support
+
 
 ### Changed
 
-- Upgrade tox, psutil, and plotly versions.
+- Upgraded dependency version.
+- Made dependencies minimum version rather than exact matches
+- Dropped tox from GitLab pipelines for speed improvements
 
 ### Removed
 
 - git-legal plugin in [.codeclimate.yml](.codeclimate.yml)
+- Dropped `dev` and `all` extras
 
 ## [v2.2.2](https://gitlab.com/Cyb3r-Jak3/metastalk/-/releases/v2.2.2) - 2020-07-11
 

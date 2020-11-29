@@ -1,10 +1,11 @@
-"""utils.parse
+"""utils.parse.
 ---
-Parse needed to make exifread dictionaries easier"""
+Parse needed to make exifread dictionaries easier
+"""
 
 
 def gps_parse(tags: dict) -> dict:
-    """Returns GPS degrees"""
+    """Returns GPS degrees."""
     latitude = tags["GPS GPSLatitude"]
     latitude_ref = tags["GPS GPSLatitudeRef"]
     longitude = tags["GPS GPSLongitude"]
@@ -21,7 +22,7 @@ def gps_parse(tags: dict) -> dict:
 
 
 def _convert_to_degrees(value) -> float:
-    """
+    """Degrees converter function.
     Helper function to convert the GPS coordinates stored in the EXIF to degrees in float format
     :param value:
     :type value: exifread.utils.Ratio

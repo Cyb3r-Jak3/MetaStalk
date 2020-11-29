@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Main function of MetaStalk.
 Run get any metadata from photos
-and creates graphs from the metadata using MetaStalk.Modules"""
+and creates graphs from the metadata using MetaStalk.Modules
+"""
 import argparse
 from collections import OrderedDict
 import os
@@ -14,7 +15,7 @@ import MetaStalk.modules as modules
 
 
 class MetaStalk:
-    """MetaStalk
+    """MetaStalk.
     ---
 
     Main Class for all MetaStalk work
@@ -27,7 +28,7 @@ class MetaStalk:
         self.plots = {}
 
     def run(self, args: argparse.Namespace) -> None:
-        """ run function
+        """Run function.
 
         Process files and passes the information on utils.graph to generates graphs.
         Will also pass plots to utils.export if the flag is set.
@@ -56,7 +57,7 @@ class MetaStalk:
             utils.graph(self.plots, self.t_start, args.test, args.no_open)
 
     def parse_files(self, path_list: list) -> None:
-        """
+        """Parses the files.
          Use to complete the directory parsing and file adding. Does not return anything
          but adds the files to to either the invalid or valid list.
 
@@ -76,7 +77,7 @@ class MetaStalk:
                 self.exif_check(path)
 
     def exif_check(self, file_path: str) -> None:
-        """exif_check
+        """exif_check.
 
         Used to append files if the path is not a directory.
 
@@ -102,7 +103,7 @@ class MetaStalk:
 
 
 def start():
-    """ start
+    """Start
     ---
 
     Function needed to start MetaStalk. Does all the argument parsing.
