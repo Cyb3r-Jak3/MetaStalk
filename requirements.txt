@@ -1,5 +1,6 @@
 exifreader >= 0.1.1
-plotly >= 4.13.0
-pandas >= 1.1.4
+plotly >= 5.0.0
+pandas >= 1.1.5
 dash >= 1.17.0
 requests >= 2.25.0
+cyberjake >= 0.0.2

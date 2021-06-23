@@ -11,18 +11,19 @@ def read(fname) -> str:
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
+with open("requirements.txt", "r") as infile:
+    requirements = [x.strip() for x in infile.readlines()]
+
+with open("requirements-dev.txt", "r") as infile:
+    requirements_dev = [x.strip() for x in infile.readlines()][1:]
+
 setup(
     name="MetaStalk",
     version=__version__,
     author=__author__,
     author_email="jake@jwhite.network",
-    install_requires=[
-        "exifreader >= 0.1.1",
-        "plotly >= 4.13.0",
-        "pandas >= 1.1.4",
-        "dash >= 1.17.0",
-        "requests == 2.25.0",
-    ],
+    install_requires=requirements,
+    tests_require=requirements_dev,
     description="Metadata analyzer and visualizer",
     license="MPL 2.0",
     python_requires=">=3.6",
