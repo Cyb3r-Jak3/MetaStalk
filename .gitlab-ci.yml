@@ -24,10 +24,7 @@ variables:
     - pip install -U pip
     - pip install --cache-dir=~/.cache/pip/ -r requirements-dev.txt
   script:
-    - black --check ./MetaStalk/
-    - pylint --rcfile=tox.ini ./MetaStalk/
-    - flake8 ./MetaStalk/
-    - bandit -r ./MetaStalk/
+    - make lint
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -69,9 +66,12 @@ Coverage:
     - curl https://deepsource.io/cli | sh
     - curl --silent -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; chmod +x ./cc-test-reporter; ./cc-test-reporter before-build
     - pip install -U pip coverage --quiet
+    - apt-get update &&
+      apt-get upgrade -qq &&
+      apt-get install -qq  make
   script:
     - pip install . --quiet
-    - coverage run --source=./MetaStalk/ --append -m unittest -vv
+    - make test
   after_script:
     - coverage report
     - coverage html
@@ -112,9 +112,7 @@ orca_test:
   before_script:
     - pip install --cache-dir=~/.cache/pip/ -U setuptools wheel twine --quiet
   script:
-    - python setup.py egg_info
-    - python setup.py sdist bdist_wheel
-    - twine check dist/*
+    - make check-dist
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:

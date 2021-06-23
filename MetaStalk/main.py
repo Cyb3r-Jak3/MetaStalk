@@ -9,6 +9,7 @@ import os
 import logging
 import timeit
 import exifreader
+from cyberjake import check_update
 from MetaStalk import __version__
 import MetaStalk.utils as utils
 import MetaStalk.modules as modules
@@ -174,7 +175,7 @@ def start():
     args = parser.parse_args()
     log = utils.make_logger("MetaStalk", args.loglevel)
     log.info("MetaStalk starting")
-    if utils.check_update(__version__):
+    if check_update("MetaStalk", __version__):
         log.warning(
             "There is a newer version of MetaStalk available.\n"
             "Run pip3 install -U metastalk"
