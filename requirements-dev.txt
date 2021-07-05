@@ -5,4 +5,4 @@ flake8
 coverage
 tox
 psutil >= 5.8.0
-black >= 20.8b1
+black >= 21.5b1
