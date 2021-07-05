@@ -10,9 +10,8 @@ import logging
 import timeit
 import exifreader
 from cyberjake import check_update
-from MetaStalk import __version__
-import MetaStalk.utils as utils
-import MetaStalk.modules as modules
+from MetaStalk import modules, utils
+from . import __version__
 
 
 class MetaStalk:
@@ -185,3 +184,7 @@ def start():
         raise FileNotFoundError("No path was inputted.")
     metastalk = MetaStalk()  # pragma: no cover
     metastalk.run(args)  # pragma: no cover
+
+
+if __name__ == "__main__":  # pragma: no cover
+    start()

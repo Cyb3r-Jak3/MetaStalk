@@ -86,6 +86,20 @@ metastalk <Path to files>
 #i.e. metastalk ./ExamplePhotos/
 ```
 
+### Docker
+
+There are docker images available to run Metastalk. The image only process and opens the webpage. It does not offer the option to export the results.
+
+Images are available from both DockerHub and GitLab.
+
+- `cyb3rjak3/metastalk:latest`
+- `registry.gitlab.com/cyb3r-jak3/metastalk:latest`
+
+To run:
+`docker run -it -v $(pwd)/ExamplePhotos:/photo:ro cyb3rjak3/metastalk`
+
+Wait until the photos have been process then open your browser to localhost:8052
+
 ## Disclaimer
 
 This is for educational/proof of concept purposes only. What you do with MetaStalk is **your** responsibility.

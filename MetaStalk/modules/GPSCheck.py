@@ -2,7 +2,7 @@
 import logging
 import plotly.express as px
 
-import MetaStalk.utils as utils
+from MetaStalk import utils
 
 log = logging.getLogger("MetaStalk")
 
